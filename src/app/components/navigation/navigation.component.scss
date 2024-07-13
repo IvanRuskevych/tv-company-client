@@ -4,7 +4,7 @@
 }
 
 .sidenav {
-  width: 200px;
+  width: fit-content; // TODO add fix width=200px
 }
 
 .sidenav .mat-toolbar {
@@ -25,6 +25,16 @@
   //background-color: red;
 }
 
+//===========
+.mat-title-small {
+  color: red;
+  text-transform: uppercase;
+
+}
+
+.username {
+  margin-left: auto;
+}
 
 
 

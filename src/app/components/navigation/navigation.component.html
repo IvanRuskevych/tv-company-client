@@ -3,13 +3,13 @@
                [attr.role]="(breakpointsService.isXSmall$ | async) ? 'dialog' : 'navigation'"
                [mode]="(breakpointsService.isXSmall$ | async) ? 'over' : 'side'"
                [opened]="(breakpointsService.isXSmall$ | async) === false">
-    <mat-toolbar>Menu!</mat-toolbar>
+    <mat-toolbar class="mat-title-small">Ads-Track-Panel</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Dashboard</a>
-      <a mat-list-item href="#">Advertisements</a>
-      <a mat-list-item href="#">Shows</a>
-      <a mat-list-item href="#">Customers</a>
-      <a mat-list-item href="#">Agents</a>
+      <a mat-list-item routerLink="">Dashboard</a>
+      <a mat-list-item routerLink="/ads">Advertisements</a>
+      <a mat-list-item routerLink="/shows">Shows</a>
+      <a mat-list-item routerLink="/customers">Customers</a>
+      <a mat-list-item routerLink="/agents">Agents</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -23,7 +23,7 @@
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
       }
-      <span>tv-company-client</span>
+      <span class="username">Add UserName</span>
     </mat-toolbar>
 
     <!-- Add Content Here -->
