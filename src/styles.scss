@@ -1,64 +1,80 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the theme object.
+$tv-company-client-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
+  ),
+  density: (
+    scale: 0,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+:root {
+  @include mat.all-component-themes($tv-company-client-theme);
+}
+
+// Comment out the line below if you want to use the pre-defined typography utility classes.
+// For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
+// @include mat.typography-hierarchy($tv-company-client-theme);
+
+// Comment out the line below if you want to use the deprecated `color` inputs.
+// @include mat.color-variants-backwards-compatibility($tv-company-client-theme);
 /* You can add global styles to this file, and also import other style files */
 
-// custom reset styles
-/*
-  1. Use a more-intuitive box-sizing model.
-*/
+
+html, body {
+  height: 100%;
+}
+
+/* Custom CSS reset */
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
-/*
-  2. Remove default margin
-*/
 * {
   margin: 0;
 }
 
-/*
-  Typographic tweaks!
-  3. Add accessible line-height
-  4. Improve text rendering
-*/
 body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 
-/*
-  5. Improve media defaults
-*/
 img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
   height: auto;
 }
 
-/*
-  6. Remove built-in form typography styles
-*/
 input, button, textarea, select {
   font: inherit;
 }
 
-/*
-  7. Avoid text overflows
-*/
 p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
   //hyphens: auto;
 }
 
-/*
-  8. Create a root stacking context
-*/
 #root, #__next {
   //isolation: isolate;
 }
 
-/*
-  9. Reset styles for other
-*/
 ul {
   list-style: none;
   padding: 0;
@@ -69,3 +85,4 @@ a {
   outline: 0;
   font-style: normal;
 }
+
