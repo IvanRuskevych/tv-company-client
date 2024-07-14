@@ -1,8 +1,11 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { AgentComponent } from './components/agent/agent.component';
+import { AgentsDashboardComponent } from './components/agents-dashboard/agents-dashboard.component';
+import { DashComponent } from './components/dash/dash.component';
 
 export const routes: Routes = [
-  { path: 'dash', component: DashboardComponent },
-  { path: 'agents', component: AgentComponent },
+  {
+    path: 'agents',
+    component: AgentsDashboardComponent,
+  },
+  { path: '', component: DashComponent },
 ];
