@@ -5,11 +5,8 @@
                [opened]="(breakpointsService.isXSmall$ | async) === false">
     <mat-toolbar class="mat-title-small">Ads-Track-Panel</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink="/dash">Dashboard</a>
-      <a mat-list-item routerLink="/ads">Advertisements</a>
-      <a mat-list-item routerLink="/shows">Shows</a>
-      <a mat-list-item routerLink="/customers">Customers</a>
       <a mat-list-item routerLink="/agents">Agents</a>
+      <a mat-list-item routerLink="/">Dash</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -27,7 +24,7 @@
     </mat-toolbar>
 
     <!-- Add Content Here -->
-    <router-outlet />
+    <router-outlet></router-outlet>
 
   </mat-sidenav-content>
 </mat-sidenav-container>

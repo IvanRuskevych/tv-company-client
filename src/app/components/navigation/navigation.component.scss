@@ -4,8 +4,14 @@
 }
 
 .sidenav {
-  width: fit-content; // TODO add fix width=200px
+  //width: 250px;
+  border-right: 2px solid red;
+
 }
+
+//.sidenav-content {
+//  flex: 1; /* це забезпечить, що контент займатиме всю доступну ширину */
+//}
 
 .sidenav .mat-toolbar {
   background: inherit;

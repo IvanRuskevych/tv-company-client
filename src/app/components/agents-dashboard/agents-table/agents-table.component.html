@@ -1,0 +1,27 @@
+<mat-form-field>
+  <mat-label>Search</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. David Flanagan" #input />
+</mat-form-field>
+
+<table mat-table matSort [dataSource]="agentsDataSource" class="mat-elevation-z8">
+  <!-- ID Column -->
+  <ng-container matColumnDef="_id">
+    <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element._id }}</mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.name }}</mat-cell>
+  </ng-container>
+
+  <!-- Commission Column -->
+  <ng-container matColumnDef="commission">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Commission</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.commission }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</table>
