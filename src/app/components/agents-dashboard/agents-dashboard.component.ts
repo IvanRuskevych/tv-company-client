@@ -24,6 +24,8 @@ import { AgentsApiService, AgentsService } from '../../services';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { TitleDashService } from '../../services/title-dash.service';
+import { MatDialog } from '@angular/material/dialog';
+import { NewAgentComponent } from './new-agent/new-agent.component';
 
 @Component({
   selector: 'app-agents-dashboard',
@@ -65,9 +67,20 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
     private agentsApiService: AgentsApiService,
     private agentsService: AgentsService,
     private titleDashService: TitleDashService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
+    this.loadAgents();
+    this.titleDashService.setTitle('Agents dashboard');
+  }
+
+  ngAfterViewInit() {
+    this.agentsDataSource.paginator = this.paginator;
+    this.agentsDataSource.sort = this.sort;
+  }
+
+  loadAgents() {
     this.agentsApiService.getAgents().subscribe(
       (agents: IAgent[]): void => {
         // console.log('agents:', agents);
@@ -85,13 +98,6 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
         console.log('Failed to load agents: =>', error);
       },
     );
-
-    this.titleDashService.setTitle('Agents dashboard');
-  }
-
-  ngAfterViewInit() {
-    this.agentsDataSource.paginator = this.paginator;
-    this.agentsDataSource.sort = this.sort;
   }
 
   applySearchFilter(event: Event) {
@@ -101,5 +107,26 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
     if (this.agentsDataSource.paginator) {
       this.agentsDataSource.paginator.firstPage();
     }
+  }
+
+  openNewAgentDialog(): void {
+    const dialogRef = this.dialog.open(NewAgentComponent); // { width: '500px' }
+    dialogRef.afterClosed().subscribe((result) => {
+      // console.log('Dialog result:', result);
+
+      if (result) {
+        this.agentsApiService.addNewAgent(result).subscribe(
+          (response: IAgent) => {
+            // console.log('Agent added successfully:', response);
+            this.agentsApiService.getAgents();
+            this.loadAgents();
+          },
+          // ,
+          // (error) => {
+          //   console.error('Error adding agent:', error);
+          // },
+        );
+      }
+    });
   }
 }
