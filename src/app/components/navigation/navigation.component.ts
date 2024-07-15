@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 
@@ -9,6 +9,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 
 import { BreakpointsService } from '../../services';
+import { TitleDashService } from '../../services/title-dash.service';
 
 @Component({
   selector: 'app-navigation',
@@ -26,6 +27,17 @@ import { BreakpointsService } from '../../services';
     RouterLink,
   ],
 })
-export class NavigationComponent {
-  constructor(public breakpointsService: BreakpointsService) {}
+export class NavigationComponent implements OnInit {
+  public currentTitle!: string;
+
+  constructor(
+    public breakpointsService: BreakpointsService,
+    private titleDashService: TitleDashService,
+  ) {}
+
+  ngOnInit() {
+    this.titleDashService.title$.subscribe((title) => {
+      this.currentTitle = title;
+    });
+  }
 }

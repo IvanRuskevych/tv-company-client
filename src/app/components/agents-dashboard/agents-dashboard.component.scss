@@ -1,21 +1,24 @@
-.grid-container {
-  margin: 20px;
+table {
+  width: 100%;
 }
 
-.dashboard-card {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  right: 15px;
-  bottom: 15px;
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 230px;
 }
 
-.more-button {
-  position: absolute;
-  top: 5px;
-  right: 10px;
+td,
+th {
+  width: 25%;
 }
 
-.dashboard-card-content {
-  text-align: center;
+.mat-paginator {
+  margin-top: 10px;
+  //background-color: red;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
