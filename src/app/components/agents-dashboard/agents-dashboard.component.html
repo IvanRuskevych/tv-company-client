@@ -1,5 +1,46 @@
-<div class="grid-container">
+<div class="wrapper">
+  <mat-form-field>
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applySearchFilter($event)" placeholder="Ex. David Flanagan" #input />
+  </mat-form-field>
 
-  <app-agents-table></app-agents-table>
-
+  <button mat-stroked-button>Add new</button>
 </div>
+<table mat-table matSort [dataSource]="agentsDataSource" class="mat-elevation-z8" #input>
+  <!-- table header -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <!-- table data -->
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+  <!-- ID Column -->
+  <ng-container matColumnDef="_id">
+    <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element._id }}</mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.name }}</mat-cell>
+  </ng-container>
+
+  <!-- Commission Column -->
+  <ng-container matColumnDef="commission">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Commission</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.commission }}</mat-cell>
+  </ng-container>
+
+  <!-- Row for empty agents list -->
+  <tr *matNoDataRow>
+    <td colspan="4">
+      No data matching the Search value: "{{ input.value }}"
+    </td>
+  </tr>
+</table>
+
+<mat-paginator
+  class="mat-paginator mat-elevation-z8"
+  [pageSize]="10"
+  [pageSizeOptions]="[5,10,20,50]"
+  aria-label="Select page">
+</mat-paginator>
