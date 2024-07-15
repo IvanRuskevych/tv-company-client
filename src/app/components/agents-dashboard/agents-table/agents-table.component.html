@@ -1,9 +1,14 @@
 <mat-form-field>
   <mat-label>Search</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. David Flanagan" #input />
+  <input matInput (keyup)="applySearchFilter($event)" placeholder="Ex. David Flanagan" #input />
 </mat-form-field>
 
-<table mat-table matSort [dataSource]="agentsDataSource" class="mat-elevation-z8">
+<table mat-table matSort [dataSource]="agentsDataSource" class="mat-elevation-z8" #input>
+  <!-- table header -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <!-- table data -->
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
   <!-- ID Column -->
   <ng-container matColumnDef="_id">
     <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
@@ -22,6 +27,17 @@
     <mat-cell *matCellDef="let element"> {{ element.commission }}</mat-cell>
   </ng-container>
 
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  <!-- Row for empty agents list -->
+  <tr *matNoDataRow>
+    <td colspan="4">
+      No data matching the Search value: "{{ input.value }}"
+    </td>
+  </tr>
 </table>
+
+<mat-paginator
+  class="mat-paginator mat-elevation-z8"
+  [pageSize]="10"
+  [pageSizeOptions]="[5,10,20,50]"
+  aria-label="Select page">
+</mat-paginator>
