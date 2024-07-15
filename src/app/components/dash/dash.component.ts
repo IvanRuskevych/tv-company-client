@@ -22,7 +22,7 @@ export class DashComponent implements OnInit {
   constructor(private titleDashService: TitleDashService) {}
 
   ngOnInit() {
-    this.titleDashService.setTitle('DASH');
+    // this.titleDashService.setTitle('DASH');
   }
 
   /** Based on the screen size, switch from standard to one column per row */

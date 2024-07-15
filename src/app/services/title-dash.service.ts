@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TitleDashService {
-  private titleSubject = new BehaviorSubject<string>('Default title !');
+  private titleSubject = new BehaviorSubject<string>('');
   title$ = this.titleSubject.asObservable();
 
   constructor() {}
