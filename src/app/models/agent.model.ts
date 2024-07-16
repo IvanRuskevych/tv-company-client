@@ -3,3 +3,8 @@ export interface IAgent {
   name: string;
   commission: number;
 }
+
+export interface IAgentsResponse {
+  data: IAgent[];
+  message?: string;
+}

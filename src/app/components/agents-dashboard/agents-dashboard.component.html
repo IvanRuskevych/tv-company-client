@@ -57,7 +57,7 @@
 
     <!-- Row for empty agents list -->
     <tr *matNoDataRow>
-      <td colspan="4">
+      <td colspan="4" *ngIf="input.value !==''">
         No data matching the Search criteria: "{{ input.value }}"
       </td>
     </tr>
