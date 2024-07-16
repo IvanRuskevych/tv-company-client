@@ -17,9 +17,9 @@ export class AgentsApiService {
     return this.http.get<IAgent[]>(this.apiUrl);
   }
 
-  public getAgentByID(id: string): Observable<IAgent> {
-    return this.http.get<IAgent>(`${this.apiUrl}/${id}`);
-  }
+  // public getAgentByID(id: string): Observable<IAgent> {
+  //   return this.http.get<IAgent>(`${this.apiUrl}/${id}`);
+  // }
 
   public addNewAgent(agent: IAgent): Observable<IAgent> {
     return this.http.post<IAgent>(this.apiUrl, agent);

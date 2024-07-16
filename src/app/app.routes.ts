@@ -11,6 +11,7 @@ export const routes: Routes = [
   { path: 'agents/create', component: AgentFormComponent },
   { path: 'agents/edit/:id', component: AgentFormComponent },
 
-  { path: '', redirectTo: '/agents', pathMatch: 'full' },
-  { path: '', component: DashComponent },
+  { path: 'home', component: DashComponent },
+
+  { path: '', redirectTo: '/', pathMatch: 'full' },
 ];

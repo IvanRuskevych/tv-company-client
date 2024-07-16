@@ -1,16 +1,20 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { NgIf } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+
 import { MatError, MatFormField, MatLabel, MatHint } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+
 import { IAgent } from '../../../models';
-import { AgentsApiService } from '../../../services';
+import { AgentsApiService, AgentsService } from '../../../services';
 import { UtilsService } from '../../../shared';
 import { regex } from '../../../constants';
+
 import { CustomDialogComponent } from '../../custom-dialog/custom-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-agent-form',
@@ -31,6 +35,7 @@ export class AgentFormComponent implements OnInit {
     private fb: FormBuilder,
     private dialog: MatDialog,
     private agentsApiService: AgentsApiService,
+    private agentsService: AgentsService,
     private utilsService: UtilsService,
   ) {
     this.agentForm = this.fb.group({
@@ -88,10 +93,10 @@ export class AgentFormComponent implements OnInit {
   createNewAgent(agentData: IAgent): void {
     this.agentsApiService.addNewAgent(agentData).subscribe({
       next: () => {
+        this.agentsService.setAgents();
         this.utilsService.navigateTo(['/agents']);
       },
       error: (err) => {
-        console.error('Error:', err); // Log the error
         if (err.status === 409) {
           this.showErrorDialog(err.error.message);
         }
@@ -101,7 +106,10 @@ export class AgentFormComponent implements OnInit {
 
   editAgentData(agentId: string, agentData: IAgent): void {
     this.agentsApiService.editAgent(agentId, agentData).subscribe({
-      next: () => this.utilsService.navigateTo(['/agents']),
+      next: () => {
+        this.agentsService.setAgents();
+        this.utilsService.navigateTo(['/agents']);
+      },
       error: (err) => {
         console.error('Error:', err); // Log the error
         if (err.status === 404) {
@@ -112,10 +120,13 @@ export class AgentFormComponent implements OnInit {
   }
 
   loadAgentData(agentId: string): void {
-    this.agentsApiService.getAgentByID(agentId).subscribe((agent: IAgent) => {
-      this.agentForm.patchValue(agent);
-    });
+    const currentAgent: IAgent | undefined = this.agentsService.getAgentByID(agentId);
+    this.agentForm.patchValue(currentAgent!);
   }
+
+  // this.agentsApiService.getAgentByID(agentId).subscribe((agent: IAgent) => {
+  //   this.agentForm.patchValue(agent);
+  // });
 
   showEditDialog(agentData: IAgent): void {
     const dialogRef = this.dialog.open(CustomDialogComponent, {

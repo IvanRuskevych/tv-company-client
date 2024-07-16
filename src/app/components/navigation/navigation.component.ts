@@ -8,8 +8,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 
-import { BreakpointsService } from '../../services';
-import { TitleDashService } from '../../services/title-dash.service';
+import { AgentsApiService, AgentsService, BreakpointsService, TitleDashService } from '../../services';
 
 @Component({
   selector: 'app-navigation',
@@ -31,11 +30,14 @@ export class NavigationComponent implements OnInit {
   public currentTitle!: string;
 
   constructor(
+    private agentsService: AgentsService,
     public breakpointsService: BreakpointsService,
     private titleDashService: TitleDashService,
   ) {}
 
   ngOnInit() {
+    this.agentsService.setAgents();
+
     this.titleDashService.title$.subscribe((title) => {
       this.currentTitle = title;
     });

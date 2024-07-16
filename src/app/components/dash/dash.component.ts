@@ -1,13 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
-import { AsyncPipe } from '@angular/common';
+
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { TitleDashService } from '../../services/title-dash.service';
 
 @Component({
   selector: 'app-dash',
@@ -19,10 +19,10 @@ import { TitleDashService } from '../../services/title-dash.service';
 export class DashComponent implements OnInit {
   private breakpointObserver = inject(BreakpointObserver);
 
-  constructor(private titleDashService: TitleDashService) {}
+  // constructor(private titleDashService: TitleDashService) {}
 
   ngOnInit() {
-    // this.titleDashService.setTitle('DASH');
+    // this.titleDashService.setTitle('DASH'); // TODO fix logic
   }
 
   /** Based on the screen size, switch from standard to one column per row */

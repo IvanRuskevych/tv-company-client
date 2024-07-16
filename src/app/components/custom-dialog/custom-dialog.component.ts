@@ -1,4 +1,6 @@
 import { Component, Inject } from '@angular/core';
+import { NgIf } from '@angular/common';
+
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -7,7 +9,6 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-custom-dialog',
