@@ -25,6 +25,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { IAgent } from '../../models';
 import { AgentsApiService, AgentsService, TitleDashService } from '../../services';
 import { UtilsService } from '../../shared';
+import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component';
 
 @Component({
   selector: 'app-agents-dashboard',
@@ -56,7 +57,7 @@ import { UtilsService } from '../../shared';
   styleUrl: './agents-dashboard.component.scss',
 })
 export class AgentsDashboardComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['name', 'commission'];
+  displayedColumns: string[] = ['name', 'commission', 'actions'];
   agentsDataSource: MatTableDataSource<IAgent> = new MatTableDataSource<IAgent>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -72,7 +73,7 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.loadAgents();
-    this.titleDashService.setTitle('Agents dashboard');
+    // this.titleDashService.setTitle('Agents dashboard');
   }
 
   ngAfterViewInit() {
@@ -111,5 +112,37 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
 
   navigateToNewAgent(): void {
     this.utilsService.navigateTo(['/agents/create']);
+  }
+
+  deleteAgent(agentId: string): void {
+    this.agentsApiService.deleteAgent(agentId).subscribe({
+      next: () => {
+        // this.agentsDataSource.data = this.agentsDataSource.data.filter((agent) => agent._id !== agentId);
+        console.log(`Агент з ID ${agentId} успішно видалено.`);
+        this.loadAgents();
+        console.log('this.loadAgents();');
+      },
+      error: (err) => {
+        console.error('Failed to delete agent:', err);
+      },
+    });
+  }
+
+  openDeleteConfirmation(agentId: string): void {
+    const dialogRef = this.dialog.open(CustomDialogComponent, {
+      data: {
+        title: 'Confirm Deletion',
+        message: `Confirm deletion of agent with ID ${agentId}`,
+        isConfirmation: true,
+        confirmText: 'Delete',
+        cancelText: 'Cancel',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.deleteAgent(agentId);
+      }
+    });
   }
 }

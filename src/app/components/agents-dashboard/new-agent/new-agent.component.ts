@@ -10,7 +10,7 @@
 // import { AgentsApiService } from '../../../services';
 // import { UtilsService } from '../../../shared';
 // import { regex } from '../../../constants';
-// import { ErrorDialogComponent } from '../../error-dialog/error-dialog.component';
+// import { CustomDialogComponent } from '../../custom-dialog/custom-dialog.component';
 // import { MatDialog } from '@angular/material/dialog';
 //
 // @Component({
@@ -69,7 +69,7 @@
 //   }
 //
 //   showErrorDialog(message: string) {
-//     const dialogRef = this.dialog.open(ErrorDialogComponent, {
+//     const dialogRef = this.dialog.open(CustomDialogComponent, {
 //       data: { message },
 //     });
 //
@@ -89,7 +89,7 @@ import { IAgent } from '../../../models';
 import { AgentsApiService } from '../../../services';
 import { UtilsService } from '../../../shared';
 import { regex } from '../../../constants';
-import { ErrorDialogComponent } from '../../error-dialog/error-dialog.component';
+import { CustomDialogComponent } from '../../custom-dialog/custom-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -149,7 +149,7 @@ export class NewAgentComponent {
   }
 
   showErrorDialog(message: string) {
-    const dialogRef = this.dialog.open(ErrorDialogComponent, {
+    const dialogRef = this.dialog.open(CustomDialogComponent, {
       data: { message },
     });
 
