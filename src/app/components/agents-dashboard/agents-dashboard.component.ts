@@ -26,6 +26,7 @@ import { IAgent } from '../../models';
 import { AgentsApiService, AgentsService, TitleDashService } from '../../services';
 import { UtilsService } from '../../shared';
 import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-agents-dashboard',
@@ -57,7 +58,7 @@ import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component'
   styleUrl: './agents-dashboard.component.scss',
 })
 export class AgentsDashboardComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['name', 'commission', 'actions'];
+  displayedColumns: string[] = ['name', 'commission', 'action-edit', 'action-delete'];
   agentsDataSource: MatTableDataSource<IAgent> = new MatTableDataSource<IAgent>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -66,7 +67,7 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
   constructor(
     private agentsApiService: AgentsApiService,
     private agentsService: AgentsService,
-    private titleDashService: TitleDashService,
+    // private titleDashService: TitleDashService,
     private dialog: MatDialog,
     private utilsService: UtilsService,
   ) {}
@@ -82,23 +83,31 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
   }
 
   loadAgents() {
-    this.agentsApiService.getAgents().subscribe(
-      (agents: IAgent[]): void => {
-        // console.log('agents:', agents);
-        this.agentsService.setAgents(agents);
-        this.agentsDataSource.data = agents;
-        this.agentsDataSource.sort = this.sort;
+    this.agentsApiService.getAgents().subscribe({
+      next: (agents: IAgent[]) => {
+        console.log('agents', agents);
+        if (Array.isArray(agents)) {
+          console.log('agents:', agents);
+          this.agentsService.setAgents(agents);
+          this.agentsDataSource.data = agents;
+          this.agentsDataSource.sort = this.sort;
 
-        // commissionInputValue from input convert to string to search by numbers
-        this.agentsDataSource.filterPredicate = (data: IAgent, filter: string) => {
-          const dataStr = `${data.name} ${data.commission}`;
-          return dataStr.toLowerCase().includes(filter);
-        };
+          // commissionInputValue from input convert to string to search by numbers
+          this.agentsDataSource.filterPredicate = (data: IAgent, filter: string) => {
+            const dataStr = `${data.name} ${data.commission}`;
+            return dataStr.toLowerCase().includes(filter);
+          };
+        } else {
+          this.openInfoDialog();
+        }
       },
-      (error: any): void => {
-        console.log('Failed to load agents: =>', error);
+      error: (err): void => {
+        if (err.status === 404) {
+          this.showErrorDialog(err.error.message);
+        }
+        console.log('Failed to load agents: =>', err);
       },
-    );
+    });
   }
 
   applySearchFilter(event: Event) {
@@ -110,29 +119,24 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  navigateToNewAgent(): void {
-    this.utilsService.navigateTo(['/agents/create']);
-  }
-
   deleteAgent(agentId: string): void {
     this.agentsApiService.deleteAgent(agentId).subscribe({
       next: () => {
-        // this.agentsDataSource.data = this.agentsDataSource.data.filter((agent) => agent._id !== agentId);
-        console.log(`Агент з ID ${agentId} успішно видалено.`);
         this.loadAgents();
-        console.log('this.loadAgents();');
       },
-      error: (err) => {
-        console.error('Failed to delete agent:', err);
+      error: (err): void => {
+        if (err.status === 404) {
+          this.showErrorDialog(err.error.message);
+        }
       },
     });
   }
 
-  openDeleteConfirmation(agentId: string): void {
+  openDeleteDialog(agentId: string): void {
     const dialogRef = this.dialog.open(CustomDialogComponent, {
       data: {
         title: 'Confirm Deletion',
-        message: `Confirm deletion of agent with ID ${agentId}`,
+        message: `Are you sure you want to delete the agent?`,
         isConfirmation: true,
         confirmText: 'Delete',
         cancelText: 'Cancel',
@@ -144,5 +148,34 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
         this.deleteAgent(agentId);
       }
     });
+  }
+
+  openInfoDialog(): void {
+    this.dialog.open(CustomDialogComponent, {
+      data: {
+        title: 'Information',
+        message: 'There are no agents in the database.',
+        isConfirmation: false,
+        confirmText: 'Ok',
+      },
+    });
+  }
+
+  showErrorDialog(message: string) {
+    const dialogRef = this.dialog.open(CustomDialogComponent, {
+      data: { message },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      // Дії після закриття діалогового вікна, якщо необхідно
+    });
+  }
+
+  navigateToNewAgent(): void {
+    this.utilsService.navigateTo(['/agents/create']);
+  }
+
+  navigateToEditAgent(agentId: string): void {
+    this.utilsService.navigateTo([`/agents/edit/${agentId}`]);
   }
 }

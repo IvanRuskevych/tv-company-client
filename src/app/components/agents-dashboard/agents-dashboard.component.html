@@ -1,121 +1,72 @@
-<!--<div class="wrapper">-->
-<!--  &lt;!&ndash;  Field for searching in the table  &ndash;&gt;-->
-<!--  <mat-form-field appearance="fill">-->
-<!--    <mat-label>Search</mat-label>-->
-<!--    <input matInput (keyup)="applySearchFilter($event)" placeholder="Ex. David Flanagan" #input />-->
-<!--  </mat-form-field>-->
+<div class="dash-container">
+  <div class="wrapper">
+    <!--  Field for searching in the table  -->
+    <mat-form-field appearance="fill">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applySearchFilter($event)" placeholder="Ex. David Flanagan" #input />
+    </mat-form-field>
 
-<!--  &lt;!&ndash;  Btn add new agent&ndash;&gt;-->
-<!--  &lt;!&ndash;  <button mat-stroked-button color="primary" (click)="openNewAgentDialog()">Add new</button>&ndash;&gt;-->
-<!--  <button mat-flat-button color="primary" (click)="navigateToNewAgent()">Add new</button>-->
-<!--</div>-->
+    <!--  Btn add new agent-->
+    <!--    <button mat-flat-button color="primary" (click)="navigateToNewAgent()" class="btn-add">Add new</button>-->
+    <button mat-flat-button color="primary" (click)="navigateToNewAgent()" class="btn-add">Add new</button>
+  </div>
 
-<!--&lt;!&ndash; Table list of agents &ndash;&gt;-->
-<!--<table mat-table matSort [dataSource]="agentsDataSource" class="mat-elevation-z8" #input>-->
-<!--  &lt;!&ndash; table header &ndash;&gt;-->
+  <!-- Table list of agents -->
+  <table mat-table matSort [dataSource]="agentsDataSource" class="mat-elevation-z8" #input>
+    <!-- table header -->
+    <!-- table header => btn edit-->
+    <ng-container matColumnDef="action-edit">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-icon-button color="warn" (click)="navigateToEditAgent(element._id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
 
-<!--  <ng-container matColumnDef="action">-->
-<!--    <mat-header-cell *matHeaderCellDef></mat-header-cell>-->
-<!--    <mat-cell *matCellDef="let element">-->
-<!--      <button mat-icon-button color="warn">-->
-<!--        <mat-icon>delete</mat-icon>-->
-<!--      </button>-->
-<!--    </mat-cell>-->
-<!--  </ng-container>-->
+    <ng-container matColumnDef="action-delete" class="column-delete">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-icon-button color="warn" (click)="openDeleteDialog(element._id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
 
-<!--  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>-->
-<!--  &lt;!&ndash; table data &ndash;&gt;-->
-<!--  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>-->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <!-- table data -->
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
-<!--  &lt;!&ndash; ID Column &ndash;&gt;-->
-<!--  <ng-container matColumnDef="_id">-->
-<!--    <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>-->
-<!--    <mat-cell *matCellDef="let element"> {{ element._id }}</mat-cell>-->
-<!--  </ng-container>-->
+    <!-- ID Column -->
+    <ng-container matColumnDef="_id">
+      <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element._id }}</mat-cell>
+    </ng-container>
 
-<!--  &lt;!&ndash; Name Column &ndash;&gt;-->
-<!--  <ng-container matColumnDef="name">-->
-<!--    <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>-->
-<!--    <mat-cell *matCellDef="let element"> {{ element.name }}</mat-cell>-->
-<!--  </ng-container>-->
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.name }}</mat-cell>
+    </ng-container>
 
-<!--  &lt;!&ndash; Commission Column &ndash;&gt;-->
-<!--  <ng-container matColumnDef="commission">-->
-<!--    <mat-header-cell *matHeaderCellDef mat-sort-header> Commission</mat-header-cell>-->
-<!--    <mat-cell *matCellDef="let element"> {{ element.commission }}</mat-cell>-->
-<!--  </ng-container>-->
+    <!-- Commission Column -->
+    <ng-container matColumnDef="commission">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Commission</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.commission }}</mat-cell>
+    </ng-container>
 
-<!--  &lt;!&ndash; Row for empty agents list &ndash;&gt;-->
-<!--  <tr *matNoDataRow>-->
-<!--    <td colspan="4">-->
-<!--      No data matching the Search commissionInputValue: "{{ input.value }}"-->
-<!--    </td>-->
-<!--  </tr>-->
-<!--</table>-->
+    <!-- Row for empty agents list -->
+    <tr *matNoDataRow>
+      <td colspan="4">
+        No data matching the Search criteria: "{{ input.value }}"
+      </td>
+    </tr>
+  </table>
 
-<!--<mat-paginator-->
-<!--  class="mat-paginator mat-elevation-z8"-->
-<!--  [pageSize]="10"-->
-<!--  [pageSizeOptions]="[5,10,20,50]"-->
-<!--  aria-label="Select page">-->
-<!--</mat-paginator>-->
-
-<div class="wrapper">
-  <!--  Field for searching in the table  -->
-  <mat-form-field appearance="fill">
-    <mat-label>Search</mat-label>
-    <input matInput (keyup)="applySearchFilter($event)" placeholder="Ex. David Flanagan" #input />
-  </mat-form-field>
-
-  <!--  Btn add new agent-->
-  <button mat-flat-button color="primary" (click)="navigateToNewAgent()">Add new</button>
+  <mat-paginator
+    class="mat-paginator mat-elevation-z8"
+    [pageSize]="10"
+    [pageSizeOptions]="[5,10,20,50]"
+    aria-label="Select page">
+  </mat-paginator>
 </div>
-
-<!-- Table list of agents -->
-<table mat-table matSort [dataSource]="agentsDataSource" class="mat-elevation-z8" #input>
-  <!-- table header -->
-  <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef></mat-header-cell>
-    <mat-cell *matCellDef="let element">
-      <button mat-icon-button color="warn" (click)="openDeleteConfirmation(element._id)">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </mat-cell>
-  </ng-container>
-
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <!-- table data -->
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-
-  <!-- ID Column -->
-  <ng-container matColumnDef="_id">
-    <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{ element._id }}</mat-cell>
-  </ng-container>
-
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{ element.name }}</mat-cell>
-  </ng-container>
-
-  <!-- Commission Column -->
-  <ng-container matColumnDef="commission">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Commission</mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{ element.commission }}</mat-cell>
-  </ng-container>
-
-  <!-- Row for empty agents list -->
-  <tr *matNoDataRow>
-    <td colspan="4">
-      No data matching the Search criteria: "{{ input.value }}"
-    </td>
-  </tr>
-</table>
-
-<mat-paginator
-  class="mat-paginator mat-elevation-z8"
-  [pageSize]="10"
-  [pageSizeOptions]="[5,10,20,50]"
-  aria-label="Select page">
-</mat-paginator>
