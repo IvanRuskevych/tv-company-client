@@ -17,8 +17,8 @@ export class AgentsApiService {
     return this.http.get<IAgent[]>(this.apiUrl);
   }
 
-  public getAgentByID(id: string): Observable<IAgent[]> {
-    return this.http.get<IAgent[]>(`${this.apiUrl}/${id}`);
+  public getAgentByID(id: string): Observable<IAgent> {
+    return this.http.get<IAgent>(`${this.apiUrl}/${id}`);
   }
 
   public addNewAgent(agent: IAgent): Observable<IAgent> {
@@ -27,11 +27,12 @@ export class AgentsApiService {
 
   // @ts-ignore
   public editAgent(id: string, agent: IAgent): Observable<void> {
-    this.http.put(`${this.apiUrl}/${id}`, agent);
+    // this.http.put<void>(`${this.apiUrl}/${id}`, agent);
+    return this.http.put<void>(`${this.apiUrl}/${id}`, agent);
   }
 
   // @ts-ignore
-  public deleteAgent(id: string): Observable<void> {
-    this.http.delete(`${this.apiUrl}/${id}`);
+  public deleteAgent(agentId: string): Observable<void> {
+    return this.http.delete<void>(this.apiUrl, { body: { agentId } });
   }
 }

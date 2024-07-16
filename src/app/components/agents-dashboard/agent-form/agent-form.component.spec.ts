@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewAgentComponent } from './new-agent.component';
+import { AgentFormComponent } from './agent-form.component';
 
 describe('NewAgentComponent', () => {
-  let component: NewAgentComponent;
-  let fixture: ComponentFixture<NewAgentComponent>;
+  let component: AgentFormComponent;
+  let fixture: ComponentFixture<AgentFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NewAgentComponent]
-    })
-    .compileComponents();
+      imports: [AgentFormComponent],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(NewAgentComponent);
+    fixture = TestBed.createComponent(AgentFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
