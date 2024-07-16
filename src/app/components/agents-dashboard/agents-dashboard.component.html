@@ -6,7 +6,8 @@
   </mat-form-field>
 
   <!--  Btn add new agent-->
-  <button mat-stroked-button color="primary" (click)="openNewAgentDialog()">Add new</button>
+  <!--  <button mat-stroked-button color="primary" (click)="openNewAgentDialog()">Add new</button>-->
+  <button mat-flat-button color="primary" (click)="navigateToNewAgent()">Add new</button>
 </div>
 
 <!-- Table list of agents -->
@@ -37,7 +38,7 @@
   <!-- Row for empty agents list -->
   <tr *matNoDataRow>
     <td colspan="4">
-      No data matching the Search value: "{{ input.value }}"
+      No data matching the Search commissionInputValue: "{{ input.value }}"
     </td>
   </tr>
 </table>

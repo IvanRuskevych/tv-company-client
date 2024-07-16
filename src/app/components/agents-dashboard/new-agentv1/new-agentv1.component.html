@@ -1,0 +1,40 @@
+<h1>Create new agent</h1>
+
+<div mat-dialog-content>
+  <form [formGroup]="agentForm">
+    <mat-form-field>
+      <mat-label>Full name</mat-label>
+      <input matInput formControlName="name" />
+
+      <mat-error *ngIf="agentForm.get('name')?.hasError('required')">
+        Name is required
+      </mat-error>
+      <mat-error *ngIf="agentForm.get('name')?.hasError('minlength')">
+        Name must be at least 4 characters long
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Commission</mat-label>
+      <input matInput formControlName="commission">
+      <mat-error *ngIf="agentForm.get('commission')?.hasError('required')">
+        Commission is required
+      </mat-error>
+      <mat-error *ngIf="agentForm.get('commission')?.hasError('pattern')">
+        Commission must be a number
+      </mat-error>
+      <mat-error *ngIf="agentForm.get('commission')?.hasError('min')">
+        Commission must be at least 0
+      </mat-error>
+      <mat-error *ngIf="agentForm.get('commission')?.hasError('max')">
+        Commission must be less than or equal to 100
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onCansel()">Cancel</button>
+  <button mat-button (click)="onCreate()" [disabled]="agentForm.invalid">Create</button>
+</div>

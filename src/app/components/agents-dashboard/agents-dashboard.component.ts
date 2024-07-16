@@ -18,14 +18,13 @@ import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field'
 import { MatInput } from '@angular/material/input';
 import { MatSort, MatSortHeader, MatSortModule } from '@angular/material/sort';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-
-import { IAgent } from '../../models';
-import { AgentsApiService, AgentsService } from '../../services';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { TitleDashService } from '../../services/title-dash.service';
 import { MatDialog } from '@angular/material/dialog';
-import { NewAgentComponent } from './new-agent/new-agent.component';
+
+import { IAgent } from '../../models';
+import { AgentsApiService, AgentsService, TitleDashService } from '../../services';
+import { UtilsService } from '../../shared';
 
 @Component({
   selector: 'app-agents-dashboard',
@@ -68,6 +67,7 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
     private agentsService: AgentsService,
     private titleDashService: TitleDashService,
     private dialog: MatDialog,
+    private utilsService: UtilsService,
   ) {}
 
   ngOnInit(): void {
@@ -88,7 +88,7 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
         this.agentsDataSource.data = agents;
         this.agentsDataSource.sort = this.sort;
 
-        // value from input convert to string to search by numbers
+        // commissionInputValue from input convert to string to search by numbers
         this.agentsDataSource.filterPredicate = (data: IAgent, filter: string) => {
           const dataStr = `${data.name} ${data.commission}`;
           return dataStr.toLowerCase().includes(filter);
@@ -109,24 +109,7 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  openNewAgentDialog(): void {
-    const dialogRef = this.dialog.open(NewAgentComponent); // { width: '500px' }
-    dialogRef.afterClosed().subscribe((result) => {
-      // console.log('Dialog result:', result);
-
-      if (result) {
-        this.agentsApiService.addNewAgent(result).subscribe(
-          (response: IAgent) => {
-            // console.log('Agent added successfully:', response);
-            this.agentsApiService.getAgents();
-            this.loadAgents();
-          },
-          // ,
-          // (error) => {
-          //   console.error('Error adding agent:', error);
-          // },
-        );
-      }
-    });
+  navigateToNewAgent(): void {
+    this.utilsService.navigateTo(['/agents/create']);
   }
 }
