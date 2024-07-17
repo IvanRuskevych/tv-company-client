@@ -3,6 +3,7 @@
   flex-direction: column;
   max-width: 400px;
   margin: auto;
+  padding: 10px;
 }
 
 mat-form-field {
@@ -10,11 +11,23 @@ mat-form-field {
 }
 
 button {
-  margin-top: 16px;
+  margin-top: 20px;
 }
 
 .btn-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.btn-create {
+  margin-right: 10px;
+}
+
+.btn-cancel {
+  margin-left: 10px;
+}
+
+.form-title {
+  margin-left: 10px;
 }
