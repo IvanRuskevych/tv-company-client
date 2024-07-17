@@ -31,12 +31,6 @@ export class AgentsService {
     this.agents = [];
   }
 
-  // public setAgents() {
-  //   this.agentsApiService.getAgents().subscribe((response: { data: IAgent[] }) => {
-  //     this.agents = response.data;
-  //   });
-  // }
-
   public getAgentByID(id: string): IAgent | undefined {
     return this.agents.find(({ _id }) => _id === id);
   }
