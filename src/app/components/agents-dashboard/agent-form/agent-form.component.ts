@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { IAgent } from '../../../models';
 import { AgentsApiService, AgentsService } from '../../../services';
 import { UtilsService } from '../../../shared';
-import { agents_data, regex } from '../../../constants';
+import { dialog_data, regex } from '../../../constants';
 
 import { CustomDialogComponent } from '../../custom-dialog/custom-dialog.component';
 
@@ -110,8 +110,7 @@ export class AgentFormComponent implements OnInit {
         this.utilsService.navigateTo(['/agents']);
       },
       error: (err) => {
-        console.error('Error:', err); // Log the error
-        if (err.status === 404) {
+        if (err.status === 404 || err.status === 409) {
           this.showErrorDialog(err.error.message);
         }
       },
@@ -125,7 +124,7 @@ export class AgentFormComponent implements OnInit {
 
   showEditDialog(agentData: IAgent): void {
     const dialogRef = this.dialog.open(CustomDialogComponent, {
-      data: agents_data.CONFIRM_EDIT,
+      data: dialog_data.CONFIRM_EDIT,
     });
 
     dialogRef.afterClosed().subscribe((result) => {

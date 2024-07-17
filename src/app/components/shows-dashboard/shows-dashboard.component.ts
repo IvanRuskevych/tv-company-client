@@ -24,15 +24,15 @@ import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 
-import { IAgent } from '../../models';
-import { AgentsApiService, AgentsService } from '../../services';
+import { IShow } from '../../models';
+import { ShowsApiService, ShowsService } from '../../services';
 import { UtilsService } from '../../shared';
 import { dialog_data } from '../../constants';
 
 import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component';
 
 @Component({
-  selector: 'app-agents-dashboard',
+  selector: 'app-shows-dashboard',
   standalone: true,
   imports: [
     MatFormField,
@@ -58,33 +58,34 @@ import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component'
     MatSuffix,
     NgIf,
   ],
-  templateUrl: './agents-dashboard.component.html',
-  styleUrl: './agents-dashboard.component.scss',
+  templateUrl: './shows-dashboard.component.html',
+  styleUrl: './shows-dashboard.component.scss',
 })
-export class AgentsDashboardComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['name', 'commission', 'action-edit', 'action-delete'];
-  agentsDataSource: MatTableDataSource<IAgent> = new MatTableDataSource<IAgent>();
-  public agents$: Observable<IAgent[]> = this.agentsService.agents$;
+export class ShowsDashboardComponent implements OnInit, AfterViewInit {
+  public displayedColumns: string[] = ['name', 'rating', 'pricePerCommercial', 'action-edit', 'action-delete'];
+  public showsDataSource: MatTableDataSource<IShow> = new MatTableDataSource<IShow>();
+
+  public shows$: Observable<IShow[]> = this.showsService.shows$;
   private destroy$ = new Subject<void>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private agentsApiService: AgentsApiService,
-    private agentsService: AgentsService,
+    private showsApiService: ShowsApiService,
+    private showsService: ShowsService,
     // private titleDashService: TitleDashService, // TODO fix logic
     private dialog: MatDialog,
     private utilsService: UtilsService,
   ) {}
 
   ngOnInit(): void {
-    this.loadAgents();
+    this.loadShows();
   }
 
   ngAfterViewInit() {
-    this.agentsDataSource.paginator = this.paginator;
-    this.agentsDataSource.sort = this.sort;
+    this.showsDataSource.paginator = this.paginator;
+    this.showsDataSource.sort = this.sort;
   }
 
   // ngOnDestroy() {
@@ -92,24 +93,24 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
   //   this.destroy$.complete();
   // }
 
-  loadAgents() {
-    this.agents$.pipe(takeUntil(this.destroy$)).subscribe({
-      next: (agents: IAgent[]) => {
-        if (Array.isArray(agents)) {
-          this.updateAgentsDataSource(agents);
+  loadShows() {
+    this.shows$.pipe(takeUntil(this.destroy$)).subscribe({
+      next: (shows: IShow[]) => {
+        if (Array.isArray(shows)) {
+          this.updateShowsDataSource(shows);
         } else {
-          this.agentsService.initialAgents();
+          this.showsService.initialShows();
           this.openInfoDialog(); // TODO fix logic when last item delete
         }
       },
     });
   }
 
-  deleteAgent(agentId: string): void {
-    this.agentsApiService.deleteAgent(agentId).subscribe({
+  deleteShow(showId: string): void {
+    this.showsApiService.deleteShow(showId).subscribe({
       next: () => {
-        this.agentsService.setAgents();
-        this.loadAgents();
+        this.showsService.setShows();
+        this.loadShows();
       },
       error: (err): void => {
         if (err.status === 404) {
@@ -120,11 +121,11 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
   }
 
   // Update data source for table
-  updateAgentsDataSource(agents: IAgent[]) {
-    this.agentsDataSource.data = agents;
-    this.agentsDataSource.sort = this.sort;
-    this.agentsDataSource.filterPredicate = (data: IAgent, filter: string) => {
-      const dataStr = `${data.name} ${data.commission}`;
+  updateShowsDataSource(shows: IShow[]) {
+    this.showsDataSource.data = shows;
+    this.showsDataSource.sort = this.sort;
+    this.showsDataSource.filterPredicate = (data: IShow, filter: string) => {
+      const dataStr = `${data.name} ${data.rating} ${data.pricePerCommercial}`;
       return dataStr.toLowerCase().includes(filter);
     };
   }
@@ -132,22 +133,22 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
   // Search filter
   applySearchFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.agentsDataSource.filter = filterValue.trim().toLowerCase();
+    this.showsDataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.agentsDataSource.paginator) {
-      this.agentsDataSource.paginator.firstPage();
+    if (this.showsDataSource.paginator) {
+      this.showsDataSource.paginator.firstPage();
     }
   }
 
   // Dialogs
-  openDeleteDialog(agentId: string): void {
+  openDeleteDialog(showId: string): void {
     const dialogRef = this.dialog.open(CustomDialogComponent, {
       data: dialog_data.CONFIRM_DELETE,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.deleteAgent(agentId);
+        this.deleteShow(showId);
       }
     });
   }
@@ -169,11 +170,11 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
   }
 
   // Navigation to...
-  navigateToNewAgent(): void {
-    this.utilsService.navigateTo(['/agents/create']);
+  navigateToNewShow(): void {
+    this.utilsService.navigateTo(['/shows/create']);
   }
 
-  navigateToEditAgent(agentId: string): void {
-    this.utilsService.navigateTo([`/agents/edit/${agentId}`]);
+  navigateToEditShow(showId: string): void {
+    this.utilsService.navigateTo([`/shows/edit/${showId}`]);
   }
 }

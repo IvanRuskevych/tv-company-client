@@ -12,7 +12,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Commission</mat-label>
-      <input matInput formControlName="commission" placeholder="Enter commission" maxlength="2"
+      <input matInput formControlName="commission" placeholder="Enter commission" maxlength="3"
              (input)="onInputCommission($event)" />
       <!--      <mat-hint align="end">{{ commissionInputValue().length }}/2</mat-hint>-->
       <mat-error *ngIf="agentForm.controls['commission'].hasError('required')">
@@ -20,6 +20,9 @@
       </mat-error>
       <mat-error *ngIf="agentForm.controls['commission'].hasError('pattern')">
         Commission must be a number
+      </mat-error>
+      <mat-error *ngIf="agentForm.controls['commission'].hasError('max')">
+        Commission must be less or equal 100
       </mat-error>
     </mat-form-field>
     <div class="btn-wrapper">
