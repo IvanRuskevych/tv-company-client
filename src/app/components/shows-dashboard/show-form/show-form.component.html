@@ -1,0 +1,51 @@
+<div class="form-container">
+  <h1 class="form-title">{{ isEditMode ? "Edit show" : "Create new show" }}</h1>
+  <form [formGroup]="showForm" (ngSubmit)="onSubmit()">
+    <!-- Full name column -->
+    <mat-form-field appearance="fill">
+      <mat-label>Full name</mat-label>
+      <input matInput formControlName="name" placeholder="Enter show full name" />
+      <mat-error *ngIf="showForm.controls['name'].hasError('required')">Name is required</mat-error>
+      <mat-error *ngIf="showForm.controls['name'].hasError('minlength')">
+        Name must be at least 3 characters long
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Rating column -->
+    <mat-form-field appearance="fill">
+      <mat-label>Rating</mat-label>
+      <input matInput formControlName="rating" placeholder="Enter rating" maxlength="2"
+             (input)="onInputRating($event)" />
+      <mat-error *ngIf="showForm.controls['rating'].hasError('required')">
+        Rating is required
+      </mat-error>
+      <mat-error *ngIf="showForm.controls['rating'].hasError('pattern')">
+        Rating must be a number
+      </mat-error>
+      <mat-error *ngIf="showForm.controls['rating'].hasError('max')">
+        Rating must be less 10
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Price column -->
+    <mat-form-field appearance="fill">
+      <mat-label>Price per commercial</mat-label>
+      <input matInput formControlName="pricePerCommercial" placeholder="Enter price"
+             (input)="onInputPrice($event)" />
+      <mat-error *ngIf="showForm.controls['pricePerCommercial'].hasError('required')">
+        Price is required
+      </mat-error>
+      <mat-error *ngIf="showForm.controls['pricePerCommercial'].hasError('pattern')">
+        Price must be a number
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Buttons cancel/delete/edit -->
+    <div class="btn-wrapper">
+      <button mat-raised-button type="button" color="primary" (click)="onCancel()" class="btn-cancel">Cancel</button>
+      <button mat-flat-button type="submit" color="primary" class="btn-create"
+              [disabled]="showForm.invalid">{{ isEditMode ? "Edit" : "Create" }}
+      </button>
+    </div>
+  </form>
+</div>

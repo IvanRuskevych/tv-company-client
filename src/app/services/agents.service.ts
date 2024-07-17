@@ -27,11 +27,11 @@ export class AgentsService {
     });
   }
 
-  public initialAgents() {
-    this.agents = [];
-  }
-
   public getAgentByID(id: string): IAgent | undefined {
     return this.agents.find(({ _id }) => _id === id);
+  }
+
+  public initialAgents() {
+    this.agents = [];
   }
 }

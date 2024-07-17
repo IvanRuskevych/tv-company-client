@@ -3,14 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { IAgent } from '../models';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AgentsApiService {
-  // private readonly apiUrl: string = 'https://tv-company-server.onrender.com/agents';
-
-  private readonly apiUrl: string = 'http://localhost:8080/agents';
+  private readonly apiUrl: string = environment.apiUrl + '/agents';
 
   constructor(private http: HttpClient) {}
 
@@ -22,12 +21,10 @@ export class AgentsApiService {
     return this.http.post<IAgent>(this.apiUrl, agent);
   }
 
-  // @ts-ignore
-  public editAgent(id: string, agent: IAgent): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}`, agent);
+  public editAgent(id: string, agent: IAgent): Observable<IAgent> {
+    return this.http.put<IAgent>(`${this.apiUrl}/${id}`, agent);
   }
 
-  // @ts-ignore
   public deleteAgent(agentId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${agentId}`);
   }
