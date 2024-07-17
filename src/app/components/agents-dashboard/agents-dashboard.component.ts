@@ -1,3 +1,5 @@
+import { NgIf } from '@angular/common';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
 import {
@@ -25,9 +27,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { IAgent } from '../../models';
 import { AgentsApiService, AgentsService } from '../../services';
 import { UtilsService } from '../../shared';
+import { agents_data } from '../../constants';
+
 import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component';
-import { Observable, Subject, takeUntil } from 'rxjs';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-agents-dashboard',
@@ -85,10 +87,10 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
     this.agentsDataSource.sort = this.sort;
   }
 
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+  // ngOnDestroy() {
+  //   this.destroy$.next();
+  //   this.destroy$.complete();
+  // }
 
   loadAgents() {
     this.agents$.pipe(takeUntil(this.destroy$)).subscribe({
@@ -140,13 +142,7 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
   // Dialogs
   openDeleteDialog(agentId: string): void {
     const dialogRef = this.dialog.open(CustomDialogComponent, {
-      data: {
-        title: 'Confirm Deletion',
-        message: `Are you sure you want to delete the agent?`,
-        isConfirmation: true,
-        confirmText: 'Delete',
-        cancelText: 'Cancel',
-      },
+      data: agents_data.CONFIRM_DELETE,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -158,12 +154,7 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
 
   openInfoDialog(): void {
     this.dialog.open(CustomDialogComponent, {
-      data: {
-        title: 'Information',
-        message: 'There are no agents in the database.',
-        isConfirmation: false,
-        confirmText: 'Ok',
-      },
+      data: agents_data.NOT_FOUND,
     });
   }
 

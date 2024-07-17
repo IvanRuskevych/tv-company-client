@@ -11,10 +11,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { IAgent } from '../../../models';
 import { AgentsApiService, AgentsService } from '../../../services';
 import { UtilsService } from '../../../shared';
-import { regex } from '../../../constants';
+import { agents_data, regex } from '../../../constants';
 
 import { CustomDialogComponent } from '../../custom-dialog/custom-dialog.component';
-import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-agent-form',
@@ -86,7 +85,7 @@ export class AgentFormComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      // Дії після закриття діалогового вікна, якщо необхідно
+      // to show smth after close dialog
     });
   }
 
@@ -124,19 +123,9 @@ export class AgentFormComponent implements OnInit {
     this.agentForm.patchValue(currentAgent!);
   }
 
-  // this.agentsApiService.getAgentByID(agentId).subscribe((agent: IAgent) => {
-  //   this.agentForm.patchValue(agent);
-  // });
-
   showEditDialog(agentData: IAgent): void {
     const dialogRef = this.dialog.open(CustomDialogComponent, {
-      data: {
-        title: 'Confirm Edition',
-        message: 'Are you sure you want to edit the agent information?',
-        isConfirmation: true,
-        confirmText: 'Edit',
-        cancelText: 'Cancel',
-      },
+      data: agents_data.CONFIRM_EDIT,
     });
 
     dialogRef.afterClosed().subscribe((result) => {

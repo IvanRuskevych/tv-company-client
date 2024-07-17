@@ -8,9 +8,9 @@ import { IAgent } from '../models';
   providedIn: 'root',
 })
 export class AgentsApiService {
-  private readonly apiUrl: string = 'https://tv-company-server.onrender.com/agents';
+  // private readonly apiUrl: string = 'https://tv-company-server.onrender.com/agents';
 
-  // private readonly apiUrl: string = 'http://localhost:8080/agents';
+  private readonly apiUrl: string = 'http://localhost:8080/agents';
 
   constructor(private http: HttpClient) {}
 
@@ -24,13 +24,11 @@ export class AgentsApiService {
 
   // @ts-ignore
   public editAgent(id: string, agent: IAgent): Observable<void> {
-    // this.http.put<void>(`${this.apiUrl}/${id}`, agent);
     return this.http.put<void>(`${this.apiUrl}/${id}`, agent);
   }
 
   // @ts-ignore
   public deleteAgent(agentId: string): Observable<void> {
-    console.log('deleteAgent(agentId: ', agentId);
     return this.http.delete<void>(`${this.apiUrl}/${agentId}`);
   }
 }
