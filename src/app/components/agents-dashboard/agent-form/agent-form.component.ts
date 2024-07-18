@@ -41,7 +41,7 @@ export class AgentFormComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(3)]],
       commission: [
         '',
-        [Validators.required, Validators.pattern(regex.COMMISSION), Validators.min(0), Validators.max(100)],
+        [Validators.required, Validators.pattern(regex.INTEGERS), Validators.min(0), Validators.max(100)],
       ],
     });
   }

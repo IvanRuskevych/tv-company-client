@@ -9,6 +9,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 
 import { AgentsApiService, AgentsService, BreakpointsService, ShowsService, TitleDashService } from '../../services';
+import { CustomersService } from '../../services/customers.service';
 
 @Component({
   selector: 'app-navigation',
@@ -32,6 +33,7 @@ export class NavigationComponent implements OnInit {
   constructor(
     private agentsService: AgentsService,
     private showsService: ShowsService,
+    private customersService: CustomersService,
     public breakpointsService: BreakpointsService,
     private titleDashService: TitleDashService,
   ) {}
@@ -39,6 +41,7 @@ export class NavigationComponent implements OnInit {
   ngOnInit() {
     this.agentsService.setAgents();
     this.showsService.setShows();
+    this.customersService.setCustomers();
 
     this.titleDashService.title$.subscribe((title) => {
       this.currentTitle = title;

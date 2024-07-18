@@ -40,8 +40,8 @@ export class ShowFormComponent implements OnInit {
   ) {
     this.showForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
-      rating: ['', [Validators.required, Validators.pattern(regex.COMMISSION), Validators.min(0), Validators.max(10)]],
-      pricePerCommercial: ['', [Validators.required, Validators.pattern(regex.COMMISSION), Validators.min(0)]],
+      rating: ['', [Validators.required, Validators.pattern(regex.INTEGERS), Validators.min(0), Validators.max(10)]],
+      pricePerCommercial: ['', [Validators.required, Validators.pattern(regex.INTEGERS), Validators.min(0)]],
     });
   }
 

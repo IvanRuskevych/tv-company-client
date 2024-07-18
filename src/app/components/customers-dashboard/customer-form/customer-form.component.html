@@ -1,0 +1,86 @@
+<div class="form-container">
+  <h1 class="form-title">{{ isEditMode ? "Edit customer" : "Create new customer" }}</h1>
+  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+    <!-- Full name column -->
+    <h2>Customer information</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Customer / organization name</mat-label>
+      <input matInput formControlName="name" placeholder="Enter customer name" />
+      <mat-error *ngIf="customerForm.controls['name'].hasError('required')">Customer name is required</mat-error>
+      <mat-error *ngIf="customerForm.controls['name'].hasError('minlength')">
+        Enter at least 3 characters
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Phone column -->
+    <mat-form-field appearance="fill">
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone" placeholder="Enter phone"
+             (input)="onInputPhone($event)" />
+      <!--      <mat-icon matSuffix>phone</mat-icon>-->
+      <mat-error *ngIf="customerForm.controls['phone'].hasError('required')">
+        Phone is required
+      </mat-error>
+      <mat-error *ngIf="customerForm.controls['phone'].hasError('pattern')">
+        Phone example: +380123456789
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Contact person column -->
+    <mat-form-field appearance="fill">
+      <mat-label>Contact person full name</mat-label>
+      <input matInput formControlName="contactPerson" placeholder="Enter full name"
+             (input)="onInputContactPerson($event)" />
+      <mat-error *ngIf="customerForm.get('contactPerson')?.hasError('required')">
+        Full name is required
+      </mat-error>
+      <mat-error *ngIf="customerForm.get('contactPerson')?.hasError('minlength')">
+        Enter at least 3 characters
+      </mat-error>
+    </mat-form-field>
+
+    <div formGroupName="bankDetails">
+      <h2>Bank details information</h2>
+      <!--   Bank name field   -->
+      <mat-form-field appearance="fill">
+        <mat-label>Bank name</mat-label>
+        <input matInput formControlName="bankName" placeholder="Enter bank name" />
+        <mat-error *ngIf="customerForm.get('bankDetails.bankName')?.hasError('required')">Bank name is required
+        </mat-error>
+        <mat-error *ngIf="customerForm.get('bankDetails.bankName')?.hasError('minlength')">Enter at least 3 characters
+        </mat-error>
+      </mat-form-field>
+
+      <!--  Identifier TIN  field  -->
+      <mat-form-field appearance="fill">
+        <mat-label>Identifier (TIN)</mat-label>
+        <input matInput formControlName="identifierTIN" placeholder="Ex. 12345678 / 1029384756" />
+        <mat-error *ngIf="customerForm.get('bankDetails.identifierTIN')?.hasError('required')">Identifier (TIN) is
+          required
+        </mat-error>
+        <mat-error *ngIf="customerForm.get('bankDetails.identifierTIN')?.hasError('pattern')">Identifier must be only
+          8 or 10 digital
+        </mat-error>
+      </mat-form-field>
+
+      <!--  IBAN  field  -->
+      <mat-form-field appearance="fill">
+        <mat-label>IBAN</mat-label>
+        <input matInput formControlName="iban" placeholder="Ex. UA12345678901234567890123456" />
+        <mat-error *ngIf="customerForm.get('bankDetails.iban')?.hasError('required')">IBAN is required
+        </mat-error>
+        <mat-error *ngIf="customerForm.get('bankDetails.iban')?.hasError('pattern')">IBAN contain only upper letters,
+          digits and have length 15-34 symbols
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Buttons cancel/delete/edit -->
+    <div class="btn-wrapper">
+      <button mat-raised-button type="button" color="primary" (click)="onCancel()" class="btn-cancel">Cancel</button>
+      <button mat-flat-button type="submit" color="primary" class="btn-create"
+              [disabled]="customerForm.invalid">{{ isEditMode ? "Edit" : "Create" }}
+      </button>
+    </div>
+  </form>
+</div>
