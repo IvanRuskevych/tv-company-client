@@ -1,3 +1,6 @@
 export const regex = {
-  COMMISSION: '^[0-9]*$',
+  INTEGERS: '^[0-9]+$',
+  PHONE: /^\+[0-9]+$/,
+  TIN: /^\d{8}$|^\d{10}$/,
+  IBAN: /^[A-Z0-9]{15,34}$/,
 };
