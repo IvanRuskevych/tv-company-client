@@ -1,53 +1,8 @@
-.dash-container {
-  padding: 10px;
-}
-
-
-//
 .mat-mdc-form-field {
   margin-left: 20px;
   width: 230px;
   font-size: 14px;
 }
-
-//
-//td,
-//th {
-//  width: 25%;
-//}
-//
-.mat-paginator {
-  margin-top: 10px;
-  //background-color: red;
-}
-
-//
-//.wrapper {
-//  @media (min-width: 360px) {
-//    display: flex;
-//    justify-content: space-between;
-//    align-items: center;
-//  }
-//}
-//
-//
-//.btn-add {
-//  margin-left: 20px;
-//  margin-bottom: 20px;
-//  height: 50px;
-//
-//  @media (min-width: 360px) {
-//    margin-right: 20px;
-//
-//
-//  }
-//}
-//
-//.mat-column-action-delete {
-//  width: 10px; // TODO dont work!!
-//  //background-color: red;
-//}
-//===========================
 
 table {
   width: 100%;
@@ -63,17 +18,15 @@ tr.example-detail-row {
 }
 
 .example-element-row {
-
   cursor: pointer;
 
   &:hover {
-    //background: blue;
+    background: whitesmoke;
   }
 }
 
 tr.example-element-row:not(.example-expanded-row):hover {
-  //background: whitesmoke;
-  //background: blue;
+  background: whitesmoke;
   cursor: pointer;
 }
 
@@ -87,12 +40,7 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .example-element-detail {
   overflow: hidden;
-  display: grid;
   margin-left: 30px;
-  gap: 10px
-  //display: flex;
-  //background-color: red;
-
 }
 
 .example-element-diagram {
@@ -110,17 +58,28 @@ tr.example-element-row:not(.example-expanded-row):active {
   line-height: normal;
 }
 
-.example-element-description {
-  padding: 16px;
-}
-
-.example-element-description-attribution {
-  opacity: 0.5;
-}
-
-//============
 .dash-container {
   padding: 10px;
+}
+
+.expand-container {
+  display: grid;
+  gap: 10px;
+  padding: 10px;
+}
+
+.mat-paginator {
+  margin-top: 10px;
+}
+
+.btn-add {
+  margin-left: 20px;
+  margin-bottom: 20px;
+  height: 50px;
+
+  @media (min-width: 360px) {
+    margin-right: 20px;
+  }
 }
 
 .wrapper {
@@ -132,9 +91,18 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .btn-delete:hover {
-  color: red;
+  color: orangered;
 }
 
 .btn-edit:hover {
   color: #0fe40f;
+
+}
+
+.bank-details {
+  padding: 10px;
+}
+
+.text-weight {
+  font-weight: bold;
 }

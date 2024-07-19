@@ -1,8 +1,8 @@
 <div class="form-container">
   <h1 class="form-title">{{ isEditMode ? "Edit customer" : "Create new customer" }}</h1>
-  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="form--grid">
     <!-- Full name column -->
-    <h2>Customer information</h2>
+    <h2>Customer information:</h2>
     <mat-form-field appearance="fill">
       <mat-label>Customer / organization name</mat-label>
       <input matInput formControlName="name" placeholder="Enter customer name" />
@@ -39,8 +39,8 @@
       </mat-error>
     </mat-form-field>
 
-    <div formGroupName="bankDetails">
-      <h2>Bank details information</h2>
+    <div formGroupName="bankDetails" class="form--grid">
+      <h2>Bank details information:</h2>
       <!--   Bank name field   -->
       <mat-form-field appearance="fill">
         <mat-label>Bank name</mat-label>

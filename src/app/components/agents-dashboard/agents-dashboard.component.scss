@@ -3,7 +3,7 @@
 }
 
 table {
-  width: 100%;
+  //width: 100%;
 }
 
 .mat-mdc-form-field {
@@ -14,7 +14,7 @@ table {
 
 td,
 th {
-  width: 25%;
+  //width: 25%;
 }
 
 .mat-paginator {
@@ -43,7 +43,19 @@ th {
   }
 }
 
+.mat-column-action-edit,
 .mat-column-action-delete {
-  width: 10px; // TODO dont work!!
-  //background-color: red;
+  max-width: 55px;
+  padding: 5px;
+  //word-wrap: break-word;
+
+}
+
+.btn-delete:hover {
+  color: orangered;
+}
+
+.btn-edit:hover {
+  color: #0fe40f;
+
 }

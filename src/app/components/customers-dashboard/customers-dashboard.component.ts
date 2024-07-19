@@ -15,6 +15,7 @@ import {
   MatRowDef,
   MatTable,
   MatTableDataSource,
+  MatTextColumn,
 } from '@angular/material/table';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -32,6 +33,7 @@ import { CustomersApiService } from '../../services/customers-api.service';
 import { CustomersService } from '../../services/customers.service';
 import { ICustomer } from '../../models/customer.model';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MatRipple } from '@angular/material/core';
 
 @Component({
   selector: 'app-shows-dashboard',
@@ -59,6 +61,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     MatIconButton,
     MatSuffix,
     NgIf,
+    MatRipple,
+    MatTextColumn,
   ],
   templateUrl: './customers-dashboard.component.html',
   styleUrl: './customers-dashboard.component.scss',

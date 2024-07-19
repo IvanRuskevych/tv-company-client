@@ -1,6 +1,6 @@
 <div class="form-container">
   <h1 class="form-title">{{ isEditMode ? "Edit show" : "Create new show" }}</h1>
-  <form [formGroup]="showForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="showForm" (ngSubmit)="onSubmit()" class="form--grid">
     <!-- Full name column -->
     <mat-form-field appearance="fill">
       <mat-label>Full name</mat-label>
