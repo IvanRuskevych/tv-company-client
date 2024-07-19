@@ -8,7 +8,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 
-import { AgentsApiService, AgentsService, BreakpointsService, ShowsService, TitleDashService } from '../../services';
+import { AgentsService, BreakpointsService, ShowsService, TitleDashService } from '../../services';
 import { CustomersService } from '../../services/customers.service';
 
 @Component({
