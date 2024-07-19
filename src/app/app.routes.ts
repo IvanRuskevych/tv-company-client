@@ -7,7 +7,6 @@ import { ShowsDashboardComponent } from './components/shows-dashboard/shows-dash
 import { ShowFormComponent } from './components/shows-dashboard/show-form/show-form.component';
 import { CustomersDashboardComponent } from './components/customers-dashboard/customers-dashboard.component';
 import { CustomerFormComponent } from './components/customers-dashboard/customer-form/customer-form.component';
-import { CustDashComponent } from './components/customers-dashboard/cust-dash/cust-dash.component';
 
 export const routes: Routes = [
   { path: 'agents', component: AgentsDashboardComponent },
