@@ -24,8 +24,6 @@ import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 
-import { IShow } from '../../models';
-import { ShowsApiService, ShowsService } from '../../services';
 import { UtilsService } from '../../shared';
 import { dialog_data } from '../../constants';
 
@@ -33,6 +31,7 @@ import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component'
 import { CustomersApiService } from '../../services/customers-api.service';
 import { CustomersService } from '../../services/customers.service';
 import { ICustomer } from '../../models/customer.model';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-shows-dashboard',
@@ -63,13 +62,27 @@ import { ICustomer } from '../../models/customer.model';
   ],
   templateUrl: './customers-dashboard.component.html',
   styleUrl: './customers-dashboard.component.scss',
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed,void', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class CustomersDashboardComponent implements OnInit, AfterViewInit {
-  public displayedColumns: string[] = ['name', 'phone', 'contactPerson', 'action-edit', 'action-delete'];
   public customersDataSource: MatTableDataSource<ICustomer> = new MatTableDataSource<ICustomer>();
-
+  public expandedElement: ICustomer | null = null;
   public customers$: Observable<ICustomer[]> = this.customersService.customers$;
   private destroy$ = new Subject<void>();
+
+  public displayedColumns: string[] = ['name', 'phone', 'contactPerson'];
+  public columnsToDisplayWithExpand = [...this.displayedColumns, 'expand', 'action-edit', 'action-delete'];
+  public columnHeaders: { [key: string]: string } = {
+    name: 'Customer name',
+    phone: 'Phone number',
+    contactPerson: 'Contact person',
+  };
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
