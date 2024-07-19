@@ -6,27 +6,27 @@
       <input matInput (keyup)="applySearchFilter($event)" placeholder="Ex. David Flanagan" #input />
     </mat-form-field>
 
-    <!--  Btn add new show-->
+    <!--  Btn add new-->
     <button mat-flat-button color="primary" (click)="navigateToNewShow()" class="btn-add">Add new</button>
   </div>
 
   <!-- Table list of shows -->
   <table mat-table matSort [dataSource]="showsDataSource" class="mat-elevation-z8" #input>
-    <!-- table header => btn edit-->
+    <!-- btn edit-->
     <ng-container matColumnDef="action-edit">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-icon-button color="warn" (click)="navigateToEditShow(element._id)">
+        <button mat-icon-button color="warn" (click)="navigateToEditShow(element._id)" class="btn-edit">
           <mat-icon>edit</mat-icon>
         </button>
       </mat-cell>
     </ng-container>
 
-    <!-- table header => btn delete-->
+    <!-- btn delete-->
     <ng-container matColumnDef="action-delete" class="column-delete">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-icon-button color="warn" (click)="openDeleteDialog(element._id)">
+        <button mat-icon-button color="warn" (click)="openDeleteDialog(element._id)" class="btn-delete">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-cell>

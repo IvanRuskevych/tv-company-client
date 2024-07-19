@@ -62,8 +62,8 @@ import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component'
   styleUrl: './agents-dashboard.component.scss',
 })
 export class AgentsDashboardComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['name', 'commission', 'action-edit', 'action-delete'];
   agentsDataSource: MatTableDataSource<IAgent> = new MatTableDataSource<IAgent>();
+  displayedColumns: string[] = ['name', 'commission', 'action-edit', 'action-delete'];
   public agents$: Observable<IAgent[]> = this.agentsService.agents$;
   private destroy$ = new Subject<void>();
 

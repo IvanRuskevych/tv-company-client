@@ -1,6 +1,6 @@
 <div class="form-container">
   <h1 class="form-title">{{ isEditMode ? "Edit agent" : "Create new agent" }}</h1>
-  <form [formGroup]="agentForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="agentForm" (ngSubmit)="onSubmit()" class="form--grid">
     <mat-form-field appearance="fill">
       <mat-label>Full name</mat-label>
       <input matInput formControlName="name" placeholder="Enter agent full name" />

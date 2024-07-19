@@ -43,7 +43,20 @@ th {
   }
 }
 
+
+.mat-column-action-edit,
 .mat-column-action-delete {
-  width: 10px; // TODO dont work!!
-  //background-color: red;
+  max-width: 55px;
+  padding: 5px;
+  //word-wrap: break-word;
+
+}
+
+.btn-delete:hover {
+  color: orangered;
+}
+
+.btn-edit:hover {
+  color: #0fe40f;
+
 }

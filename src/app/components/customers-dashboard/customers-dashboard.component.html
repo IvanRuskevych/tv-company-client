@@ -1,12 +1,12 @@
 <div class="dash-container">
   <div class="wrapper">
-    <!--  Field for searching in the table  -->
+    <!--  Search field  -->
     <mat-form-field appearance="fill">
       <mat-label>Search</mat-label>
       <input matInput (keyup)="applySearchFilter($event)" placeholder="Ex. David Flanagan" #input />
     </mat-form-field>
 
-    <!--  Btn add new show-->
+    <!--  Btn add new  -->
     <button mat-flat-button color="primary" (click)="navigateToNewCustomer()" class="btn-add">Add new</button>
   </div>
 
@@ -19,9 +19,10 @@
         <td mat-cell *matCellDef="let element"> {{ element[column] }}</td>
       </ng-container>
     }
+
     <!--  btn arrow up/down-->
     <ng-container matColumnDef="expand">
-      <th mat-header-cell *matHeaderCellDef aria-label="row actions">Modify</th>
+      <th mat-header-cell *matHeaderCellDef aria-label="row actions"></th>
       <td mat-cell *matCellDef="let element" class="btn-pudding">
         <button mat-icon-button aria-label="expand row"
                 (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
@@ -54,23 +55,22 @@
       </td>
     </ng-container>
 
-
     <!-- Expanded Content Column -->
     <ng-container matColumnDef="expandedDetail">
       <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
         <div class="example-element-detail"
              [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-          <h3>Customer bank information:</h3>
-          <span>Bank name: {{ element.bankDetails.bankName }}</span>
-          <span>Identifier (TIN): {{ element.bankDetails.identifierTIN }}</span>
-          <span>IBAN: {{ element.bankDetails.iban }}</span>
-          <!--          <div class="example-element-weight"> {{ element.weight }}</div>-->
+          <div class="expand-container">
+            <h3>Customer bank information:</h3>
+            <span><span class="text-weight">Bank name:</span> {{ element.bankDetails.bankName }}</span>
+            <span><span class="text-weight">Identifier (TIN):</span> {{ element.bankDetails.identifierTIN }}</span>
+            <span><span class="text-weight">IBAN:</span> {{ element.bankDetails.iban }}</span>
+          </div>
         </div>
-
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand; sticky: true"></tr>
     <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
         class="example-element-row"
         [class.example-expanded-row]="expandedElement === element"
