@@ -11,9 +11,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { IShow } from '../../../models';
 import { ShowsApiService, ShowsService } from '../../../services';
 import { UtilsService } from '../../../shared';
-import { dialog_data, regex } from '../../../constants';
+import { regex } from '../../../constants';
 
 import { CustomDialogComponent } from '../../custom-dialog/custom-dialog.component';
+import { dialogData } from '../../../constants/dialogData';
 
 @Component({
   selector: 'app-show-form',
@@ -129,7 +130,7 @@ export class ShowFormComponent implements OnInit {
 
   showEditDialog(showData: IShow): void {
     const dialogRef = this.dialog.open(CustomDialogComponent, {
-      data: dialog_data.CONFIRM_EDIT,
+      data: dialogData.CONFIRM_EDIT,
     });
 
     dialogRef.afterClosed().subscribe((result) => {

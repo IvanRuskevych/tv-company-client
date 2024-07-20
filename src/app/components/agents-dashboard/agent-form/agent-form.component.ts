@@ -11,9 +11,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { IAgent } from '../../../models';
 import { AgentsApiService, AgentsService } from '../../../services';
 import { UtilsService } from '../../../shared';
-import { dialog_data, regex } from '../../../constants';
+import { regex } from '../../../constants';
 
 import { CustomDialogComponent } from '../../custom-dialog/custom-dialog.component';
+import { dialogData } from '../../../constants/dialogData';
 
 @Component({
   selector: 'app-agent-form',
@@ -124,7 +125,7 @@ export class AgentFormComponent implements OnInit {
 
   showEditDialog(agentData: IAgent): void {
     const dialogRef = this.dialog.open(CustomDialogComponent, {
-      data: dialog_data.CONFIRM_EDIT,
+      data: dialogData.CONFIRM_EDIT,
     });
 
     dialogRef.afterClosed().subscribe((result) => {

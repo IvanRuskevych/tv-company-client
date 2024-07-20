@@ -12,9 +12,10 @@ import { MatIcon } from '@angular/material/icon';
 import { ICustomer } from '../../../models';
 import { CustomersApiService, CustomersService } from '../../../services';
 import { UtilsService } from '../../../shared';
-import { dialog_data, regex } from '../../../constants';
+import { regex } from '../../../constants';
 
 import { CustomDialogComponent } from '../../custom-dialog/custom-dialog.component';
+import { dialogData } from '../../../constants/dialogData';
 
 @Component({
   selector: 'app-customer-form',
@@ -130,7 +131,7 @@ export class CustomerFormComponent implements OnInit {
 
   customerEditDialog(customerData: ICustomer): void {
     const dialogRef = this.dialog.open(CustomDialogComponent, {
-      data: dialog_data.CONFIRM_EDIT,
+      data: dialogData.CONFIRM_EDIT,
     });
 
     dialogRef.afterClosed().subscribe((result) => {

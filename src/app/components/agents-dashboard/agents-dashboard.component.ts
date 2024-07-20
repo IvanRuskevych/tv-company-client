@@ -29,7 +29,7 @@ import { AgentsApiService, AgentsService } from '../../services';
 import { UtilsService } from '../../shared';
 
 import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component';
-import { dialog_data } from '../../constants';
+import { dialogData } from '../../constants/dialogData';
 
 @Component({
   selector: 'app-agents-dashboard',
@@ -142,7 +142,7 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
   // Dialogs
   openDeleteDialog(agentId: string): void {
     const dialogRef = this.dialog.open(CustomDialogComponent, {
-      data: dialog_data.CONFIRM_DELETE,
+      data: dialogData.CONFIRM_DELETE,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -154,7 +154,7 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
 
   openInfoDialog(): void {
     this.dialog.open(CustomDialogComponent, {
-      data: dialog_data.NOT_FOUND,
+      data: dialogData.NOT_FOUND,
     });
   }
 

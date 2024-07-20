@@ -1,4 +1,4 @@
-export const dialog_data = {
+export const dialogData = {
   NOT_FOUND: {
     title: 'Information',
     message: 'There is no information in the database.',
