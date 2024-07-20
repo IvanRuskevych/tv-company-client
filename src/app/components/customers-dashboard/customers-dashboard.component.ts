@@ -115,7 +115,6 @@ export class CustomersDashboardComponent implements OnInit, AfterViewInit {
   loadCustomers() {
     this.customers$.pipe(takeUntil(this.destroy$)).subscribe({
       next: (customers: ICustomer[]) => {
-        console.log('customers: ', customers);
         if (Array.isArray(customers)) {
           this.updateCustomersDataSource(customers);
         } else {
