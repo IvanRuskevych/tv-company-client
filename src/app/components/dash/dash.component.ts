@@ -8,6 +8,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { TitleDashService } from '../../services';
 
 @Component({
   selector: 'app-dash',
@@ -19,7 +20,7 @@ import { MatCardModule } from '@angular/material/card';
 export class DashComponent implements OnInit {
   private breakpointObserver = inject(BreakpointObserver);
 
-  // constructor(private titleDashService: TitleDashService) {}
+  constructor(private titleDashService: TitleDashService) {}
 
   ngOnInit() {
     // this.titleDashService.setTitle('DASH'); // TODO fix logic

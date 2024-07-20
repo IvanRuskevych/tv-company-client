@@ -8,8 +8,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 
-import { AgentsService, BreakpointsService, ShowsService, TitleDashService } from '../../services';
-import { CustomersService } from '../../services/customers.service';
+import { BreakpointsService, TitleDashService } from '../../services';
+import { AuthenticateService } from '../../services/authenticate.service';
 
 @Component({
   selector: 'app-navigation',
@@ -31,18 +31,12 @@ export class NavigationComponent implements OnInit {
   public currentTitle!: string;
 
   constructor(
-    private agentsService: AgentsService,
-    private showsService: ShowsService,
-    private customersService: CustomersService,
     public breakpointsService: BreakpointsService,
     private titleDashService: TitleDashService,
+    private authenticateService: AuthenticateService,
   ) {}
 
   ngOnInit() {
-    this.agentsService.setAgents();
-    this.showsService.setShows();
-    this.customersService.setCustomers();
-
     this.titleDashService.title$.subscribe((title) => {
       this.currentTitle = title;
     });

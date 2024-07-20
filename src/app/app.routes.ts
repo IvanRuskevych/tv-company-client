@@ -7,21 +7,25 @@ import { ShowsDashboardComponent } from './components/shows-dashboard/shows-dash
 import { ShowFormComponent } from './components/shows-dashboard/show-form/show-form.component';
 import { CustomersDashboardComponent } from './components/customers-dashboard/customers-dashboard.component';
 import { CustomerFormComponent } from './components/customers-dashboard/customer-form/customer-form.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthenticateService } from './services/authenticate.service';
 
 export const routes: Routes = [
-  { path: 'agents', component: AgentsDashboardComponent },
-  { path: 'agents/create', component: AgentFormComponent },
-  { path: 'agents/edit/:id', component: AgentFormComponent },
+  { path: 'login', component: LoginComponent },
 
-  { path: 'shows', component: ShowsDashboardComponent },
-  { path: 'shows/create', component: ShowFormComponent },
-  { path: 'shows/edit/:id', component: ShowFormComponent },
+  { path: 'agents', component: AgentsDashboardComponent, canActivate: [AuthenticateService] },
+  { path: 'agents/create', component: AgentFormComponent, canActivate: [AuthenticateService] },
+  { path: 'agents/edit/:id', component: AgentFormComponent, canActivate: [AuthenticateService] },
 
-  { path: 'customers', component: CustomersDashboardComponent },
-  { path: 'customers/create', component: CustomerFormComponent },
-  { path: 'customers/edit/:id', component: CustomerFormComponent },
+  { path: 'shows', component: ShowsDashboardComponent, canActivate: [AuthenticateService] },
+  { path: 'shows/create', component: ShowFormComponent, canActivate: [AuthenticateService] },
+  { path: 'shows/edit/:id', component: ShowFormComponent, canActivate: [AuthenticateService] },
 
-  { path: 'home', component: DashComponent },
+  { path: 'customers', component: CustomersDashboardComponent, canActivate: [AuthenticateService] },
+  { path: 'customers/create', component: CustomerFormComponent, canActivate: [AuthenticateService] },
+  { path: 'customers/edit/:id', component: CustomerFormComponent, canActivate: [AuthenticateService] },
+
+  { path: 'dash', component: DashComponent, canActivate: [AuthenticateService] },
 
   { path: '', redirectTo: '/', pathMatch: 'full' },
 ];
