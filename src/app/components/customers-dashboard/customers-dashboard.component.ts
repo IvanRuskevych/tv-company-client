@@ -1,6 +1,6 @@
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
 import {
   MatCell,
@@ -24,16 +24,15 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
+import { MatRipple } from '@angular/material/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
+import { ICustomer } from '../../models';
+import { CustomersApiService, CustomersService } from '../../services';
 import { UtilsService } from '../../shared';
-import { dialog_data } from '../../constants';
 
 import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component';
-import { CustomersApiService } from '../../services/customers-api.service';
-import { CustomersService } from '../../services/customers.service';
-import { ICustomer } from '../../models/customer.model';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MatRipple } from '@angular/material/core';
+import { dialog_data } from '../../constants';
 
 @Component({
   selector: 'app-shows-dashboard',

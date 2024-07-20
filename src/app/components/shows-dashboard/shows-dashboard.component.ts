@@ -27,9 +27,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { IShow } from '../../models';
 import { ShowsApiService, ShowsService } from '../../services';
 import { UtilsService } from '../../shared';
-import { dialog_data } from '../../constants';
 
 import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component';
+import { dialog_data } from '../../constants';
 
 @Component({
   selector: 'app-shows-dashboard',

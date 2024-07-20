@@ -7,17 +7,14 @@ import { MatError, MatFormField, MatLabel, MatHint } from '@angular/material/for
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
 
-import { IShow } from '../../../models';
-import { ShowsApiService, ShowsService } from '../../../services';
+import { ICustomer } from '../../../models';
+import { CustomersApiService, CustomersService } from '../../../services';
 import { UtilsService } from '../../../shared';
 import { dialog_data, regex } from '../../../constants';
 
 import { CustomDialogComponent } from '../../custom-dialog/custom-dialog.component';
-import { CustomersApiService } from '../../../services/customers-api.service';
-import { CustomersService } from '../../../services/customers.service';
-import { ICustomer } from '../../../models/customer.model';
-import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-customer-form',
