@@ -27,5 +27,5 @@ export const routes: Routes = [
 
   { path: 'dash', component: DashComponent, canActivate: [AuthenticateService] },
 
-  { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '**', redirectTo: '/dash', pathMatch: 'full' },
 ];
