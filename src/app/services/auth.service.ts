@@ -24,9 +24,11 @@ export class AuthService {
     private agentsService: AgentsService,
     private showsService: ShowsService,
     private customersService: CustomersService,
-  ) {}
+  ) {
+  }
 
   login(credentials: ILogin): Observable<any> {
+    console.log('AuthService.login called with credentials:', credentials);
     return this.http.post<any>(`${this.apiUrl}${apiEndpoints.LOGIN}`, credentials).pipe(
       tap((response) => {
         localStorage.setItem('accessToken', response.accessToken);
