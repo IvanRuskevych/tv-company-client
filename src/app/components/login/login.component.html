@@ -1,7 +1,7 @@
 <div class="form-container">
-  <h1 class="form-title">Login</h1>
-
+  <h1 class="form-title">TV Company APP</h1>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmitForm()" class="form--grid">
+    <h2>Login</h2>
     <mat-form-field appearance="fill">
       <mat-label>Employee ID</mat-label>
       <input matInput formControlName="employeeID" placeholder="Ex. 12345" maxlength="5" />
@@ -15,9 +15,18 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Password</mat-label>
-      <input matInput formControlName="password" placeholder="Ex. Password1" />
+      <input matInput formControlName="password" [type]="hide() ? 'password' : 'text'" placeholder="Ex. Password2" />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="toggleHide($event)"
+        [attr.aria-label]="'password'"
+        [attr.aria-pressed]="hide()"
+      >
+        <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
       <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
-        Enter password
+        Enter your password
       </mat-error>
       <mat-error *ngIf="loginForm.get('password')?.hasError('pattern')">
         Ex. Password1
@@ -27,7 +36,7 @@
     <div class="btn-wrapper">
       <button mat-raised-button type="button" color="primary" (click)="onCancel()" class="btn-cancel">Cancel</button>
       <button mat-flat-button type="submit" color="primary" class="btn-create"
-              [disabled]="loginForm.invalid">{{ isEditMode ? "Edit" : "Create" }}
+              [disabled]="loginForm.invalid">Login
       </button>
     </div>
 

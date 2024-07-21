@@ -12,7 +12,6 @@ import { AuthenticateService } from './services/authenticate.service';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
-
   { path: 'agents', component: AgentsDashboardComponent, canActivate: [AuthenticateService] },
   { path: 'agents/create', component: AgentFormComponent, canActivate: [AuthenticateService] },
   { path: 'agents/edit/:id', component: AgentFormComponent, canActivate: [AuthenticateService] },

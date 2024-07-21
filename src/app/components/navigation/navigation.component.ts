@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,6 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { AgentsService, BreakpointsService, CustomersService, ShowsService, TitleDashService } from '../../services';
 import { AuthenticateService } from '../../services/authenticate.service';
+import { LoginComponent } from '../login/login.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navigation',
@@ -25,10 +27,13 @@ import { AuthenticateService } from '../../services/authenticate.service';
     AsyncPipe,
     RouterOutlet,
     RouterLink,
+    LoginComponent,
+    NgIf,
   ],
 })
 export class NavigationComponent implements OnInit {
   public currentTitle!: string;
+  public isAuth$: Observable<boolean> = this.authenticateService.authState$;
 
   constructor(
     public breakpointsService: BreakpointsService,
@@ -37,18 +42,22 @@ export class NavigationComponent implements OnInit {
     private agentsService: AgentsService,
     private showsService: ShowsService,
     private customersService: CustomersService,
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
-    if (this.authenticateService.isAuthenticated()) {
-      // Load all data from DB when reloaded app
-      this.agentsService.setAgents();
-      this.showsService.setShows();
-      this.customersService.setCustomers();
+    this.isAuth$.subscribe(isAuth => {
+      console.log('isAuth', isAuth);
+      if (isAuth) {
+        // Load all data from DB when reloaded app
+        this.agentsService.setAgents();
+        this.showsService.setShows();
+        this.customersService.setCustomers();
 
-      this.titleDashService.title$.subscribe((title) => {
-        this.currentTitle = title;
-      });
-    }
+        this.titleDashService.title$.subscribe((title) => {
+          this.currentTitle = title;
+        });
+      }
+    });
   }
 }
