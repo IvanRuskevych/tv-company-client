@@ -49,7 +49,6 @@ export class NavigationComponent implements OnInit {
     public breakpointsService: BreakpointsService,
     private titleDashService: TitleDashService,
     private authenticateService: AuthenticateService,
-    private authService: AuthService,
     private agentsService: AgentsService,
     private showsService: ShowsService,
     private customersService: CustomersService,
