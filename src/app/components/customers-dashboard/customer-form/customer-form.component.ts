@@ -103,7 +103,7 @@ export class CustomerFormComponent implements OnInit {
         this.utilsService.navigateTo(['/customers']);
       },
       error: (err) => {
-        if (err.status === 409) {
+        if (err.status === 403 || err.status === 409) {
           this.showErrorDialog(err.error.message);
         }
       },
@@ -117,7 +117,7 @@ export class CustomerFormComponent implements OnInit {
         this.utilsService.navigateTo(['/customers']);
       },
       error: (err) => {
-        if (err.status === 404 || err.status === 409) {
+        if (err.status === 403 || err.status === 404 || err.status === 409) {
           this.showErrorDialog(err.error.message);
         }
       },

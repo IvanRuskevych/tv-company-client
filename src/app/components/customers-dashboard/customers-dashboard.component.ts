@@ -96,7 +96,8 @@ export class CustomersDashboardComponent implements OnInit, AfterViewInit {
     // private titleDashService: TitleDashService, // TODO fix logic
     private dialog: MatDialog,
     private utilsService: UtilsService,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.loadCustomers();
@@ -132,7 +133,7 @@ export class CustomersDashboardComponent implements OnInit, AfterViewInit {
         this.loadCustomers();
       },
       error: (err): void => {
-        if (err.status === 404) {
+        if (err.status === 404 || err.status === 403) {
           this.showErrorDialog(err.error.message);
         }
       },

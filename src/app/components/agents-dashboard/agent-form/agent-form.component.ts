@@ -97,7 +97,7 @@ export class AgentFormComponent implements OnInit {
         this.utilsService.navigateTo(['/agents']);
       },
       error: (err) => {
-        if (err.status === 409) {
+        if (err.status === 403 || err.status === 409) {
           this.showErrorDialog(err.error.message);
         }
       },
@@ -111,7 +111,7 @@ export class AgentFormComponent implements OnInit {
         this.utilsService.navigateTo(['/agents']);
       },
       error: (err) => {
-        if (err.status === 404 || err.status === 409) {
+        if (err.status === 403 || err.status === 404 || err.status === 409) {
           this.showErrorDialog(err.error.message);
         }
       },
