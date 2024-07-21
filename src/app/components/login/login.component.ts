@@ -30,9 +30,8 @@ import { AuthenticateService } from '../../services/authenticate.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   loginForm: FormGroup;
-  isEditMode: boolean = false;
 
   hide = signal(true);
 
@@ -42,16 +41,12 @@ export class LoginComponent implements OnInit {
     private utilsService: UtilsService,
     private authenticateService: AuthenticateService,
   ) {
-    console.log('LoginComponent constructor called');
     this.loginForm = this.fb.group({
       employeeID: ['', [Validators.required, Validators.pattern(regex.EMPLOYEE_ID)]],
       password: ['', [Validators.required, Validators.pattern(regex.PASSWORD)]],
     });
   }
 
-  ngOnInit() {
-    console.log('LoginComponent initialized');
-  }
 
   toggleHide(event: MouseEvent) {
     event.preventDefault();
@@ -61,15 +56,12 @@ export class LoginComponent implements OnInit {
 
   onSubmitForm() {
     if (this.loginForm.valid) {
-      console.log('Form is valid, proceeding with login');
       this.authService.login(this.loginForm.value).subscribe({
-        next: (response) => {
-          console.log('Login successful');
-          this.authenticateService.login(response.token);
+        next: () => {
+          this.authenticateService.login();
           this.utilsService.navigateTo(['/dash']);
         },
         error: (err) => {
-          console.log('login err: ', err);
           this.utilsService.showErrorDialog(err.error.message);
         },
       });
