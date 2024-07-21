@@ -101,7 +101,7 @@ export class ShowFormComponent implements OnInit {
         this.utilsService.navigateTo(['/shows']);
       },
       error: (err) => {
-        if (err.status === 409) {
+        if (err.status === 403 || err.status === 409) {
           this.showErrorDialog(err.error.message);
         }
       },
@@ -115,8 +115,7 @@ export class ShowFormComponent implements OnInit {
         this.utilsService.navigateTo(['/shows']);
       },
       error: (err) => {
-        console.error('Error:', err); // Log the error
-        if (err.status === 404 || err.status === 409) {
+        if (err.status === 403 || err.status === 404 || err.status === 409) {
           this.showErrorDialog(err.error.message);
         }
       },

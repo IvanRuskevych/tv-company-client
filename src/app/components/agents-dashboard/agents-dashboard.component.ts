@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
 import {
@@ -65,7 +65,6 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
   agentsDataSource: MatTableDataSource<IAgent> = new MatTableDataSource<IAgent>();
   displayedColumns: string[] = ['name', 'commission', 'action-edit', 'action-delete'];
   public agents$: Observable<IAgent[]> = this.agentsService.agents$;
-  private destroy$ = new Subject<void>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -76,7 +75,8 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
     // private titleDashService: TitleDashService, // TODO fix logic
     private dialog: MatDialog,
     private utilsService: UtilsService,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.loadAgents();
@@ -87,13 +87,8 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
     this.agentsDataSource.sort = this.sort;
   }
 
-  // ngOnDestroy() {
-  //   this.destroy$.next();
-  //   this.destroy$.complete();
-  // }
-
   loadAgents() {
-    this.agents$.pipe(takeUntil(this.destroy$)).subscribe({
+    this.agents$.subscribe({
       next: (agents: IAgent[]) => {
         if (Array.isArray(agents)) {
           this.updateAgentsDataSource(agents);
@@ -112,7 +107,7 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
         this.loadAgents();
       },
       error: (err): void => {
-        if (err.status === 404) {
+        if (err.status === 404 || err.status === 403) {
           this.showErrorDialog(err.error.message);
         }
       },
