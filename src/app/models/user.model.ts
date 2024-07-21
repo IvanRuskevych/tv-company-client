@@ -1,7 +1,5 @@
-export interface UserModel {
-  _id: string,
+export interface IUser {
   employeeID: string,
-  password: string,
   name: string,
   phone: string,
   role: string,

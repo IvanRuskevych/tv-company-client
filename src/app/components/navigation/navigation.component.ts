@@ -22,6 +22,8 @@ import { Observable } from 'rxjs';
 import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component';
 import { dialogData } from '../../constants/dialogData';
 import { MatDialog } from '@angular/material/dialog';
+import { UserService } from '../../services/user.service';
+import { IUser } from '../../models/user.model';
 
 @Component({
   selector: 'app-navigation',
@@ -43,6 +45,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class NavigationComponent implements OnInit {
   public currentTitle!: string;
+  public currentUser: IUser | null = null;
   public isAuth$: Observable<boolean> = this.authenticateService.authState$;
 
   constructor(
@@ -52,6 +55,7 @@ export class NavigationComponent implements OnInit {
     private agentsService: AgentsService,
     private showsService: ShowsService,
     private customersService: CustomersService,
+    private userService: UserService,
     private dialog: MatDialog,
   ) {
   }
@@ -63,6 +67,10 @@ export class NavigationComponent implements OnInit {
         this.agentsService.setAgents();
         this.showsService.setShows();
         this.customersService.setCustomers();
+        this.userService.getCurrentUser().subscribe(user => {
+            this.currentUser = user;
+          },
+        );
 
         this.titleDashService.title$.subscribe((title) => {
           this.currentTitle = title;
@@ -79,6 +87,7 @@ export class NavigationComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.authenticateService.logout();
+        this.currentUser = null;
       }
     });
 

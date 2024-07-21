@@ -11,6 +11,10 @@
         <a mat-list-item routerLink="/customers">Customers</a>
         <a mat-list-item routerLink="/agents">Agents</a>
       </mat-nav-list>
+      <div class="btn-logout">
+        <button mat-raised-button type="button" color="primary" (click)="openLogoutDialog()">Logout
+        </button>
+      </div>
     </mat-sidenav>
     <mat-sidenav-content>
       <mat-toolbar color="primary">
@@ -24,13 +28,15 @@
           </button>
         }
         <h1 class="mat-h1">{{ currentTitle }}</h1>
-        <span class="username">Add UserName</span>
-        <button mat-raised-button type="button" color="primary" (click)="openLogoutDialog()">Logout</button>
-
+        <div class="user-container">
+          <span>{{ currentUser?.name }}</span>
+          <span>Role: {{ currentUser?.role }}</span>
+        </div>
       </mat-toolbar>
-
-      <!-- Add Content Here -->
-      <router-outlet></router-outlet>
+      <div class="router-outlet-container">
+        <!-- Add Content Here -->
+        <router-outlet></router-outlet>
+      </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </ng-container>
