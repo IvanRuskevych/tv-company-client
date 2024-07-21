@@ -5,7 +5,11 @@
 
 .sidenav {
   width: 230px;
-  border-right: 2px solid red;
+  gap: 16px;
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+  //border-right: 2px solid red;
 
 }
 
@@ -13,10 +17,15 @@
 //  flex: 1; /* це забезпечить, що контент займатиме всю доступну ширину */
 //}
 
+.mat-mdc-list-base {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .sidenav .mat-toolbar {
   background: inherit;
   //background-color: red;
-
 }
 
 .mat-toolbar.mat-primary {
@@ -33,7 +42,7 @@
 
 //===========
 .mat-title-small {
-  color: red;
+  //color: red;
   text-transform: uppercase;
 
 }
@@ -42,5 +51,7 @@
   margin-left: auto;
 }
 
-
+form-container {
+  //margin-top: 50px; // TODO не працює
+}
 
