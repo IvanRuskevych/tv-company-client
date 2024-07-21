@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 import { UtilsService } from '../shared';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -34,24 +34,15 @@ export class AuthenticateService implements CanActivate {
     return isAuthenticated;
   }
 
-  login(token: string): void {
-    localStorage.setItem('accessToken', token);
+  login(): void {
     this.authState.next(true); // оновлюємо стан
     this.utilsService.navigateTo(['/dash']);
   }
 
   logout(): void {
-    localStorage.removeItem('accessToken');
     this.authState.next(false); // оновлюємо стан
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     this.utilsService.navigateTo(['/login']);
   }
-
-  getAuthStatus(): boolean {
-    return this.authState.value;
-  }
-
-  updateAuthState(): void {
-    this.authState.next(this.hasToken());
-  }
-
 }

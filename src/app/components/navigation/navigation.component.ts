@@ -8,10 +8,20 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 
-import { AgentsService, BreakpointsService, CustomersService, ShowsService, TitleDashService } from '../../services';
+import {
+  AgentsService,
+  AuthService,
+  BreakpointsService,
+  CustomersService,
+  ShowsService,
+  TitleDashService,
+} from '../../services';
 import { AuthenticateService } from '../../services/authenticate.service';
 import { LoginComponent } from '../login/login.component';
 import { Observable } from 'rxjs';
+import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component';
+import { dialogData } from '../../constants/dialogData';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-navigation',
@@ -39,15 +49,16 @@ export class NavigationComponent implements OnInit {
     public breakpointsService: BreakpointsService,
     private titleDashService: TitleDashService,
     private authenticateService: AuthenticateService,
+    private authService: AuthService,
     private agentsService: AgentsService,
     private showsService: ShowsService,
     private customersService: CustomersService,
+    private dialog: MatDialog,
   ) {
   }
 
   ngOnInit() {
     this.isAuth$.subscribe(isAuth => {
-      console.log('isAuth', isAuth);
       if (isAuth) {
         // Load all data from DB when reloaded app
         this.agentsService.setAgents();
@@ -59,5 +70,18 @@ export class NavigationComponent implements OnInit {
         });
       }
     });
+  }
+
+  openLogoutDialog() {
+    const dialogRef = this.dialog.open(CustomDialogComponent, {
+      data: dialogData.LOGOUT,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.authenticateService.logout();
+      }
+    });
+
   }
 }

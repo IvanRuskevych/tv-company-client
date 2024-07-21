@@ -28,7 +28,6 @@ export class AuthService {
   }
 
   login(credentials: ILogin): Observable<any> {
-    console.log('AuthService.login called with credentials:', credentials);
     return this.http.post<any>(`${this.apiUrl}${apiEndpoints.LOGIN}`, credentials).pipe(
       tap((response) => {
         localStorage.setItem('accessToken', response.accessToken);
@@ -43,6 +42,12 @@ export class AuthService {
         return throwError(() => err);
       }),
     );
+  }
+
+  logout(): void {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    this.utilsService.navigateTo([routeEndpoints.LOGIN]);
   }
 
   refreshAccessToken(): Observable<any> {
@@ -69,9 +74,5 @@ export class AuthService {
     }
   }
 
-  logout(): void {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshAccessToken');
-    this.utilsService.navigateTo([routeEndpoints.LOGIN]);
-  }
+
 }

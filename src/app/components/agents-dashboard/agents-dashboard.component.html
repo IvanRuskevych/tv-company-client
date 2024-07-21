@@ -18,7 +18,7 @@
     <ng-container matColumnDef="action-edit" class="qqq">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element" class="column-action-edit-cell">
-        <button mat-icon-button color="warn" (click)="navigateToEditAgent(element._id)" class="btn-edit">
+        <button type="button" mat-icon-button color="warn" (click)="navigateToEditAgent(element._id)" class="btn-edit">
           <mat-icon>edit</mat-icon>
         </button>
       </mat-cell>
@@ -28,7 +28,7 @@
     <ng-container matColumnDef="action-delete" class="column-action-delete-header">
       <mat-header-cell *matHeaderCellDef class="column-action-delete-cell"></mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-icon-button color="warn" (click)="openDeleteDialog(element._id)" class="btn-delete">
+        <button type="button" mat-icon-button color="warn" (click)="openDeleteDialog(element._id)" class="btn-delete">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-cell>

@@ -19,4 +19,11 @@ export const dialogData = {
     confirmText: 'Edit',
     cancelText: 'Cancel',
   },
+  LOGOUT: {
+    title: 'Confirm Exit',
+    message: `Are you sure you want to exit?`,
+    isConfirmation: true,
+    confirmText: 'Exit',
+    cancelText: 'Cancel',
+  },
 };

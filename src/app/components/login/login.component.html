@@ -17,6 +17,7 @@
       <mat-label>Password</mat-label>
       <input matInput formControlName="password" [type]="hide() ? 'password' : 'text'" placeholder="Ex. Password2" />
       <button
+        type="button"
         mat-icon-button
         matSuffix
         (click)="toggleHide($event)"
@@ -34,11 +35,12 @@
     </mat-form-field>
 
     <div class="btn-wrapper">
-      <button mat-raised-button type="button" color="primary" (click)="onCancel()" class="btn-cancel">Cancel</button>
+      <button mat-raised-button type="button" color="primary" (click)="onCancel()" class="btn-cancel">Clear</button>
       <button mat-flat-button type="submit" color="primary" class="btn-create"
               [disabled]="loginForm.invalid">Login
       </button>
     </div>
 
   </form>
+
 </div>
