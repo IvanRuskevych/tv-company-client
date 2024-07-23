@@ -1,6 +1,6 @@
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { Observable } from 'rxjs';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
 import {
   MatCell,
@@ -27,9 +27,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { IAgent } from '../../models';
 import { AgentsApiService, AgentsService } from '../../services';
 import { UtilsService } from '../../shared';
+import { dialogData } from '../../constants';
 
 import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component';
-import { dialogData } from '../../constants/dialogData';
 
 @Component({
   selector: 'app-agents-dashboard',
@@ -62,8 +62,8 @@ import { dialogData } from '../../constants/dialogData';
   styleUrl: './agents-dashboard.component.scss',
 })
 export class AgentsDashboardComponent implements OnInit, AfterViewInit {
-  agentsDataSource: MatTableDataSource<IAgent> = new MatTableDataSource<IAgent>();
-  displayedColumns: string[] = ['name', 'commission', 'action-edit', 'action-delete'];
+  public agentsDataSource: MatTableDataSource<IAgent> = new MatTableDataSource<IAgent>();
+  public displayedColumns: string[] = ['name', 'commission', 'action-edit', 'action-delete'];
   public agents$: Observable<IAgent[]> = this.agentsService.agents$;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -87,6 +87,7 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
     this.agentsDataSource.sort = this.sort;
   }
 
+  // Main methods
   loadAgents() {
     this.agents$.subscribe({
       next: (agents: IAgent[]) => {
@@ -94,7 +95,7 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
           this.updateAgentsDataSource(agents);
         } else {
           this.agentsService.initialAgents();
-          this.openInfoDialog(); // TODO fix logic when last item delete
+          this.openInfoDialog();
         }
       },
     });
@@ -114,7 +115,6 @@ export class AgentsDashboardComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // Update data source for table
   updateAgentsDataSource(agents: IAgent[]) {
     this.agentsDataSource.data = agents;
     this.agentsDataSource.sort = this.sort;

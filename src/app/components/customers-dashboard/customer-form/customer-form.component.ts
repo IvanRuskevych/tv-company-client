@@ -12,10 +12,9 @@ import { MatIcon } from '@angular/material/icon';
 import { ICustomer } from '../../../models';
 import { CustomersApiService, CustomersService } from '../../../services';
 import { UtilsService } from '../../../shared';
-import { regex } from '../../../constants';
+import { regex, dialogData } from '../../../constants';
 
 import { CustomDialogComponent } from '../../custom-dialog/custom-dialog.component';
-import { dialogData } from '../../../constants/dialogData';
 
 @Component({
   selector: 'app-customer-form',
@@ -25,9 +24,9 @@ import { dialogData } from '../../../constants/dialogData';
   styleUrls: ['./customer-form.component.scss'],
 })
 export class CustomerFormComponent implements OnInit {
-  customerForm: FormGroup;
-  customerId: string | null = null;
-  isEditMode: boolean = false;
+  private customerId: string | null = null;
+  public customerForm: FormGroup;
+  public isEditMode: boolean = false;
 
   protected readonly phoneInputValue = signal('');
   protected readonly contactPersonInputValue = signal('');
@@ -86,16 +85,6 @@ export class CustomerFormComponent implements OnInit {
     this.utilsService.navigateTo(['/customers']);
   }
 
-  showErrorDialog(message: string) {
-    const dialogRef = this.dialog.open(CustomDialogComponent, {
-      data: { message },
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      // to show smth after close dialog
-    });
-  }
-
   createNewCustomer(customerData: ICustomer): void {
     this.customersApiService.addNewCustomer(customerData).subscribe({
       next: () => {
@@ -114,7 +103,6 @@ export class CustomerFormComponent implements OnInit {
     this.customersApiService.editCustomer(customerId, customerData).subscribe({
       next: () => {
         this.customersService.setCustomers();
-        this.utilsService.navigateTo(['/customers']);
       },
       error: (err) => {
         if (err.status === 403 || err.status === 404 || err.status === 409) {
@@ -137,9 +125,19 @@ export class CustomerFormComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result && this.customerId) {
         this.editCustomerData(this.customerId, customerData);
-        // this.utilsService.navigateTo(['/customers']);
-        // this.isEditMode = false;
+        this.utilsService.navigateTo(['/customers']);
+        this.isEditMode = false;
       }
+    });
+  }
+
+  showErrorDialog(message: string) {
+    const dialogRef = this.dialog.open(CustomDialogComponent, {
+      data: { message },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      // to show smth after close dialog
     });
   }
 }

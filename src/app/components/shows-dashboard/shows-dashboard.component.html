@@ -10,7 +10,7 @@
     <button mat-flat-button color="primary" (click)="navigateToNewShow()" class="btn-add">Add new</button>
   </div>
 
-  <!-- Table list of shows -->
+  <!-- Table with shows list -->
   <table mat-table matSort [dataSource]="showsDataSource" class="mat-elevation-z8" #input>
     <!-- btn edit-->
     <ng-container matColumnDef="action-edit">
@@ -32,16 +32,9 @@
       </mat-cell>
     </ng-container>
 
-    <!-- table header -->
+    <!-- table header & data -->
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <!-- table data -->
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-
-    <!-- ID Column -->
-    <ng-container matColumnDef="_id">
-      <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element._id }}</mat-cell>
-    </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
@@ -51,13 +44,13 @@
 
     <!-- Rating Column -->
     <ng-container matColumnDef="rating">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Rating</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Rating (1-10)</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.rating }}</mat-cell>
     </ng-container>
 
     <!-- Price Column -->
     <ng-container matColumnDef="pricePerCommercial">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Price per commercial</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Price ($/minute)</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.pricePerCommercial }}</mat-cell>
     </ng-container>
 

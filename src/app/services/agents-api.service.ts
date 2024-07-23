@@ -11,7 +11,8 @@ import { environment } from '../../environments/environment';
 export class AgentsApiService {
   private readonly apiUrl: string = environment.apiUrl + '/agents';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   public getAgents(): Observable<IAgent[]> {
     return this.http.get<IAgent[]>(this.apiUrl);
@@ -25,7 +26,7 @@ export class AgentsApiService {
     return this.http.put<IAgent>(`${this.apiUrl}/${id}`, agent);
   }
 
-  public deleteAgent(agentId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${agentId}`);
+  public deleteAgent(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

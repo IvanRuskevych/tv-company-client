@@ -30,7 +30,6 @@ export class AuthenticateService implements CanActivate {
   isAuthenticated(): boolean {
     const isAuthenticated = this.hasToken();
     this.authState.next(isAuthenticated);
-    console.log('isAuthenticated()', isAuthenticated);
     return isAuthenticated;
   }
 

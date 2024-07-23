@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import {
   MatCell,
@@ -32,7 +32,7 @@ import { CustomersApiService, CustomersService } from '../../services';
 import { UtilsService } from '../../shared';
 
 import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component';
-import { dialogData } from '../../constants/dialogData';
+import { dialogData } from '../../constants';
 
 @Component({
   selector: 'app-shows-dashboard',
@@ -74,11 +74,9 @@ import { dialogData } from '../../constants/dialogData';
   ],
 })
 export class CustomersDashboardComponent implements OnInit, AfterViewInit {
-  public customersDataSource: MatTableDataSource<ICustomer> = new MatTableDataSource<ICustomer>();
-  public expandedElement: ICustomer | null = null;
   public customers$: Observable<ICustomer[]> = this.customersService.customers$;
-  private destroy$ = new Subject<void>();
-
+  public expandedElement: ICustomer | null = null;
+  public customersDataSource: MatTableDataSource<ICustomer> = new MatTableDataSource<ICustomer>();
   public displayedColumns: string[] = ['name', 'phone', 'contactPerson'];
   public columnsToDisplayWithExpand = [...this.displayedColumns, 'expand', 'action-edit', 'action-delete'];
   public columnHeaders: { [key: string]: string } = {
@@ -108,19 +106,15 @@ export class CustomersDashboardComponent implements OnInit, AfterViewInit {
     this.customersDataSource.sort = this.sort;
   }
 
-  // ngOnDestroy() {
-  //   this.destroy$.next();
-  //   this.destroy$.complete();
-  // }
-
+  // Main methods
   loadCustomers() {
-    this.customers$.pipe(takeUntil(this.destroy$)).subscribe({
+    this.customers$.subscribe({
       next: (customers: ICustomer[]) => {
         if (Array.isArray(customers)) {
           this.updateCustomersDataSource(customers);
         } else {
           this.customersService.initialCustomers();
-          this.openInfoDialog(); // TODO fix logic when last item delete
+          this.openInfoDialog();
         }
       },
     });
@@ -140,7 +134,6 @@ export class CustomersDashboardComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // Update data source for table
   updateCustomersDataSource(customers: ICustomer[]) {
     this.customersDataSource.data = customers;
     this.customersDataSource.sort = this.sort;

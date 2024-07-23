@@ -11,10 +11,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { IShow } from '../../../models';
 import { ShowsApiService, ShowsService } from '../../../services';
 import { UtilsService } from '../../../shared';
-import { regex } from '../../../constants';
+import { regex, dialogData } from '../../../constants';
 
 import { CustomDialogComponent } from '../../custom-dialog/custom-dialog.component';
-import { dialogData } from '../../../constants/dialogData';
 
 @Component({
   selector: 'app-show-form',
@@ -24,9 +23,9 @@ import { dialogData } from '../../../constants/dialogData';
   styleUrls: ['./show-form.component.scss'],
 })
 export class ShowFormComponent implements OnInit {
-  showForm: FormGroup;
-  showId: string | null = null;
-  isEditMode: boolean = false;
+  private showId: string | null = null;
+  public showForm: FormGroup;
+  public isEditMode: boolean = false;
 
   protected readonly ratingInputValue = signal('');
   protected readonly priceInputValue = signal('');
@@ -69,7 +68,7 @@ export class ShowFormComponent implements OnInit {
       const showData: IShow = {
         ...this.showForm.value,
         rating: Number(this.showForm.value.rating), // conversion: rating from a string into a number
-        pricePerCommercial: Number(this.showForm.value.pricePerCommercial), // conversion: rating from a string into a number
+        pricePerCommercial: Number(this.showForm.value.pricePerCommercial), // conversion: pricePerCommercial from a string into a number
       };
 
       if (this.isEditMode && this.showId) {
@@ -82,16 +81,6 @@ export class ShowFormComponent implements OnInit {
 
   onCancel(): void {
     this.utilsService.navigateTo(['/shows']);
-  }
-
-  showErrorDialog(message: string) {
-    const dialogRef = this.dialog.open(CustomDialogComponent, {
-      data: { message },
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      // to show smth after close dialog
-    });
   }
 
   createNewShow(showData: IShow): void {
@@ -112,7 +101,6 @@ export class ShowFormComponent implements OnInit {
     this.showsApiService.editShow(showId, showData).subscribe({
       next: () => {
         this.showsService.setShows();
-        this.utilsService.navigateTo(['/shows']);
       },
       error: (err) => {
         if (err.status === 403 || err.status === 404 || err.status === 409) {
@@ -135,9 +123,20 @@ export class ShowFormComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result && this.showId) {
         this.editShowData(this.showId, showData);
-        // this.utilsService.navigateTo(['/shows']);
-        // this.isEditMode = false;
+        this.utilsService.navigateTo(['/shows']);
+        this.isEditMode = false;
       }
     });
   }
+
+  showErrorDialog(message: string) {
+    const dialogRef = this.dialog.open(CustomDialogComponent, {
+      data: { message },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      // to show smth after close dialog
+    });
+  }
+
 }

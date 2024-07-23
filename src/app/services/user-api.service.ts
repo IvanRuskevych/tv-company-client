@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { IUser } from '../models/user.model';
+
+import { IUser } from '../models/';
 import { apiEndpoints } from '../constants';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',

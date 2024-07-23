@@ -1,0 +1,119 @@
+.mat-mdc-form-field {
+  margin-left: 20px;
+  width: 230px;
+  font-size: 14px;
+}
+
+table {
+  width: 100%;
+}
+
+td.btn-pudding {
+  padding: 0;
+  width: 55px;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+.example-element-row {
+  cursor: pointer;
+
+  &:hover {
+    background: whitesmoke;
+  }
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+  cursor: pointer;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  margin-left: 30px;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.dash-container {
+  padding: 10px;
+}
+
+.expand-container {
+  display: grid;
+  gap: 10px;
+  padding: 10px;
+}
+
+.mat-paginator {
+  margin-top: 10px;
+}
+
+.btn-add {
+  margin-left: 20px;
+  margin-bottom: 20px;
+  height: 50px;
+
+  @media (min-width: 360px) {
+    margin-right: 20px;
+  }
+}
+
+.wrapper {
+  @media (min-width: 360px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.btn-delete:hover {
+  color: orangered;
+}
+
+.btn-edit:hover {
+  color: #0fe40f;
+
+}
+
+.bank-details {
+  padding: 10px;
+}
+
+.text-weight {
+  font-weight: bold;
+}
+
+
+.example-element-detail {
+  display: grid;
+  align-items: start;
+
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(3, auto);
+
+  }
+}

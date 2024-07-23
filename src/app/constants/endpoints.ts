@@ -4,7 +4,3 @@ export const apiEndpoints = {
   REFRESH: '/auth/refresh',
   USER_CURRENT: '/users/current',
 };
-
-export const routeEndpoints = {
-  LOGIN: '/login',
-};

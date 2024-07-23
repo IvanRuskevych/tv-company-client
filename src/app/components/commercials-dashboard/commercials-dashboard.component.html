@@ -7,19 +7,38 @@
     </mat-form-field>
 
     <!--  Btn add new  -->
-    <button type="button" mat-flat-button color="primary" (click)="navigateToNewCustomer()" class="btn-add">Add new
+    <button type="button" mat-flat-button color="primary" (click)="navigateToNewCommercial()" class="btn-add">Add new
     </button>
   </div>
-  <!-- Table with customers list-->
+
+  <!--  Table with commercials list-->
   <table mat-table matSort
-         [dataSource]="customersDataSource" multiTemplateDataRows
+         [dataSource]="commercialsDataSource" multiTemplateDataRows
          class="mat-elevation-z8">
-    @for (column of displayedColumns; track column) {
-      <ng-container matColumnDef="{{column}}">
-        <th mat-header-cell *matHeaderCellDef> {{ columnHeaders[column] }}</th>
-        <td mat-cell *matCellDef="let element"> {{ element[column] }}</td>
-      </ng-container>
-    }
+
+    <!-- Commercials name column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let element"> {{ element.name }}</td>
+    </ng-container>
+
+    <!-- Shows name column -->
+    <ng-container matColumnDef="show">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Show</th>
+      <td mat-cell *matCellDef="let element"> {{ element.show.name }}</td>
+    </ng-container>
+
+    <!-- Commercials date column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date start</th>
+      <td mat-cell *matCellDef="let element"> {{ element.date.start.split('T')[0].toString() }}</td>
+    </ng-container>
+
+    <!-- Commercials duration column -->
+    <ng-container matColumnDef="duration">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration (minutes)</th>
+      <td mat-cell *matCellDef="let element"> {{ element.duration }}</td>
+    </ng-container>
 
     <!--  btn arrow up/down-->
     <ng-container matColumnDef="expand">
@@ -40,7 +59,7 @@
     <ng-container matColumnDef="action-edit">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element" class="btn-pudding">
-        <button mat-icon-button color="warn" (click)="navigateToEditCustomer(element._id)" class="btn-edit">
+        <button mat-icon-button color="warn" (click)="navigateToEditCommercial(element._id)" class="btn-edit">
           <mat-icon>edit</mat-icon>
         </button>
       </td>
@@ -59,15 +78,27 @@
     <!-- Expanded Content Column -->
     <ng-container matColumnDef="expandedDetail">
       <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
-        <div class="example-element-detail"
-             [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-          <div class="expand-container">
-            <h3>Customer bank information:</h3>
-            <span><span class="text-weight">Bank name:</span> {{ element.bankDetails.bankName }}</span>
-            <span><span class="text-weight">Identifier (TIN):</span> {{ element.bankDetails.identifierTIN }}</span>
-            <span><span class="text-weight">IBAN:</span> {{ element.bankDetails.iban }}</span>
-          </div>
-        </div>
+        <ul class="example-element-detail"
+            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          <li class="expand-container">
+            <h3>Show information:</h3>
+            <span><i class="text-weight">Name:</i> {{ element.show.name }}</span>
+            <span><i class="text-weight">Rating:</i> {{ element.show.rating }}</span>
+            <span><i class="text-weight">Price:</i> {{ element.show.pricePerCommercial }} ($/minute)</span>
+          </li>
+          <li class="expand-container">
+            <h3>Customer information:</h3>
+            <span><i class="text-weight">Name:</i> {{ element.customer.name }}</span>
+            <span><i class="text-weight">Contact Person:</i> {{ element.customer.contactPerson }} (tel.:
+              {{ element.customer.phone }})</span>
+          </li>
+
+          <li class="expand-container">
+            <h3>Agent information:</h3>
+            <span><i class="text-weight">Full name:</i> {{ element.agent.name }}</span>
+            <span><i class="text-weight">Commission:</i> {{ element.agent.commission }}%</span>
+          </li>
+        </ul>
       </td>
     </ng-container>
 

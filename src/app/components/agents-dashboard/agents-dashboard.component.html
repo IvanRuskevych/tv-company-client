@@ -7,13 +7,11 @@
     </mat-form-field>
 
     <!--  Btn add new agent-->
-    <!--    <button mat-flat-button color="primary" (click)="navigateToNewAgent()" class="btn-add">Add new</button>-->
     <button mat-flat-button color="primary" (click)="navigateToNewAgent()" class="btn-add">Add new</button>
   </div>
 
   <!-- Table list of agents -->
   <table mat-table matSort [dataSource]="agentsDataSource" class="mat-elevation-z8" #input>
-    <!-- table header -->
     <!-- btn edit-->
     <ng-container matColumnDef="action-edit" class="qqq">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
@@ -34,15 +32,9 @@
       </mat-cell>
     </ng-container>
 
+    <!-- table header & data -->
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <!-- table data -->
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-
-    <!-- ID Column -->
-    <ng-container matColumnDef="_id">
-      <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element._id }}</mat-cell>
-    </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
