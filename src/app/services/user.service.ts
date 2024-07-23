@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Observable, tap } from 'rxjs';
+
+import { IUser } from '../models';
 import { UserApiService } from './user-api.service';
-import { IUser } from '../models/user.model';
-import { catchError, Observable, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

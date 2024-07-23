@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, of, switchMap, tap, throwError } from 'rxjs';
 
 import { ILogin } from '../models';
-import { UtilsService } from '../shared';
-import { environment } from '../../environments/environment';
-import { apiEndpoints, routeEndpoints } from '../constants';
 import { AgentsService } from './agents.service';
 import { ShowsService } from './shows.service';
 import { CustomersService } from './customers.service';
+import { CommercialsService } from './commercials.service';
+import { UtilsService } from '../shared';
+import { environment } from '../../environments/environment';
+import { apiEndpoints } from '../constants';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,7 @@ export class AuthService {
     private agentsService: AgentsService,
     private showsService: ShowsService,
     private customersService: CustomersService,
+    private commercialsService: CommercialsService,
   ) {
   }
 
@@ -36,6 +38,7 @@ export class AuthService {
         this.agentsService.setAgents();
         this.showsService.setShows();
         this.customersService.setCustomers();
+        this.commercialsService.setCommercials();
       }),
       catchError((err) => {
         this.utilsService.showErrorDialog(err.error.message);
@@ -47,7 +50,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
-    this.utilsService.navigateTo([routeEndpoints.LOGIN]);
+    this.utilsService.navigateTo(['/login']);
   }
 
   refreshAccessToken(): Observable<any> {
@@ -68,11 +71,10 @@ export class AuthService {
         catchError((err) => {
           this.refreshTokenInProgress = false;
           this.logout();
-          return throwError(() => err);
+          return throwError(() => this.utilsService.showErrorDialog(err.error.message),
+          );
         }),
       );
     }
   }
-
-
 }

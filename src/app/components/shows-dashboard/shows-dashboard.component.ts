@@ -1,6 +1,6 @@
-import { NgIf } from '@angular/common';
-import { Observable, Subject, takeUntil } from 'rxjs';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { Observable } from 'rxjs';
 
 import {
   MatCell,
@@ -27,9 +27,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { IShow } from '../../models';
 import { ShowsApiService, ShowsService } from '../../services';
 import { UtilsService } from '../../shared';
+import { dialogData } from '../../constants';
 
 import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component';
-import { dialogData } from '../../constants/dialogData';
 
 @Component({
   selector: 'app-shows-dashboard',
@@ -62,11 +62,9 @@ import { dialogData } from '../../constants/dialogData';
   styleUrl: './shows-dashboard.component.scss',
 })
 export class ShowsDashboardComponent implements OnInit, AfterViewInit {
-  public displayedColumns: string[] = ['name', 'rating', 'pricePerCommercial', 'action-edit', 'action-delete'];
-  public showsDataSource: MatTableDataSource<IShow> = new MatTableDataSource<IShow>();
-
   public shows$: Observable<IShow[]> = this.showsService.shows$;
-  private destroy$ = new Subject<void>();
+  public showsDataSource: MatTableDataSource<IShow> = new MatTableDataSource<IShow>();
+  public displayedColumns: string[] = ['name', 'rating', 'pricePerCommercial', 'action-edit', 'action-delete'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -89,19 +87,14 @@ export class ShowsDashboardComponent implements OnInit, AfterViewInit {
     this.showsDataSource.sort = this.sort;
   }
 
-  // ngOnDestroy() {
-  //   this.destroy$.next();
-  //   this.destroy$.complete();
-  // }
-
   loadShows() {
-    this.shows$.pipe(takeUntil(this.destroy$)).subscribe({
+    this.shows$.subscribe({
       next: (shows: IShow[]) => {
         if (Array.isArray(shows)) {
           this.updateShowsDataSource(shows);
         } else {
           this.showsService.initialShows();
-          this.openInfoDialog(); // TODO fix logic when last item delete
+          this.openInfoDialog();
         }
       },
     });

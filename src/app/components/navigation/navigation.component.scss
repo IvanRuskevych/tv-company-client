@@ -1,21 +1,14 @@
 .sidenav-container {
   height: 100%;
-  //background-color: yellowgreen;
 }
 
 .sidenav {
   width: 230px;
   gap: 16px;
-  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
   0px 8px 10px 1px rgba(0, 0, 0, 0.14),
   0px 3px 14px 2px rgba(0, 0, 0, 0.12);
-  //border-right: 2px solid red;
-
 }
-
-//.sidenav-content {
-//  flex: 1; /* це забезпечить, що контент займатиме всю доступну ширину */
-//}
 
 .mat-mdc-list-base {
   display: flex;
@@ -25,28 +18,23 @@
 
 .sidenav .mat-toolbar {
   background: inherit;
-  //background-color: red;
 }
 
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
   z-index: 1;
-  //background-color: blue;
 }
 
 .mat-toolbar {
   margin-top: auto;
-  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
   0px 8px 10px 1px rgba(0, 0, 0, 0.14),
   0px 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
-//===========
 .mat-title-small {
-  //color: red;
   text-transform: uppercase;
-
 }
 
 .user-container {
@@ -65,9 +53,7 @@
 }
 
 .mat-drawer-side {
-  //margin-top: 70px;
   border-radius: unset;
-  //background-color: red;
 }
 
 .router-outlet-container {

@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -7,10 +7,9 @@ import { MatInput } from '@angular/material/input';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 
-import { AuthService } from '../../services';
+import { AuthService, AuthenticateService } from '../../services';
 import { UtilsService } from '../../shared';
 import { regex } from '../../constants';
-import { AuthenticateService } from '../../services/authenticate.service';
 
 @Component({
   selector: 'app-login',
@@ -59,14 +58,12 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value).subscribe({
         next: () => {
           this.authenticateService.login();
-          this.utilsService.navigateTo(['/dash']);
+          this.utilsService.navigateTo(['/commercials']);
         },
         error: (err) => {
           this.utilsService.showErrorDialog(err.error.message);
         },
       });
-    } else {
-      console.log('Form is invalid');
     }
   }
 

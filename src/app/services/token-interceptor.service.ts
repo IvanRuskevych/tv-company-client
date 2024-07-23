@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from './auth.service';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
+
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TokenInterceptorService implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const accessToken = localStorage.getItem('accessToken');
@@ -45,7 +47,6 @@ export class TokenInterceptorService implements HttpInterceptor {
         }
       }),
       catchError((err) => {
-        console.log(`Error handling expired access token: `, err);
         return throwError(() => err);
       }),
     );

@@ -14,7 +14,6 @@
       <mat-label>Commission</mat-label>
       <input matInput formControlName="commission" placeholder="Enter commission" maxlength="3"
              (input)="onInputCommission($event)" />
-      <!--      <mat-hint align="end">{{ commissionInputValue().length }}/2</mat-hint>-->
       <mat-error *ngIf="agentForm.controls['commission'].hasError('required')">
         Commission is required
       </mat-error>

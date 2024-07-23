@@ -1,29 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AsyncPipe, NgIf } from '@angular/common';
+import { Observable } from 'rxjs';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-
-import {
-  AgentsService,
-  AuthService,
-  BreakpointsService,
-  CustomersService,
-  ShowsService,
-  TitleDashService,
-} from '../../services';
-import { AuthenticateService } from '../../services/authenticate.service';
-import { LoginComponent } from '../login/login.component';
-import { Observable } from 'rxjs';
-import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component';
-import { dialogData } from '../../constants/dialogData';
 import { MatDialog } from '@angular/material/dialog';
-import { UserService } from '../../services/user.service';
-import { IUser } from '../../models/user.model';
+
+import { IUser } from '../../models';
+import {
+  AgentsService, BreakpointsService, CommercialsService,
+  CustomersService, ShowsService, TitleDashService, AuthenticateService, UserService,
+} from '../../services';
+import { dialogData } from '../../constants';
+
+import { CustomDialogComponent } from '../custom-dialog/custom-dialog.component';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-navigation',
@@ -55,6 +50,7 @@ export class NavigationComponent implements OnInit {
     private agentsService: AgentsService,
     private showsService: ShowsService,
     private customersService: CustomersService,
+    private commercialsService: CommercialsService,
     private userService: UserService,
     private dialog: MatDialog,
   ) {
@@ -67,6 +63,7 @@ export class NavigationComponent implements OnInit {
         this.agentsService.setAgents();
         this.showsService.setShows();
         this.customersService.setCustomers();
+        this.commercialsService.setCommercials();
         this.userService.getCurrentUser().subscribe(user => {
             this.currentUser = user;
           },

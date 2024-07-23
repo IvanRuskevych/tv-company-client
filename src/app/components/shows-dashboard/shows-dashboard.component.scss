@@ -19,7 +19,6 @@ th {
 
 .mat-paginator {
   margin-top: 10px;
-  //background-color: red;
 }
 
 .wrapper {
@@ -38,8 +37,6 @@ th {
 
   @media (min-width: 360px) {
     margin-right: 20px;
-
-
   }
 }
 
@@ -48,8 +45,6 @@ th {
 .mat-column-action-delete {
   max-width: 55px;
   padding: 5px;
-  //word-wrap: break-word;
-
 }
 
 .btn-delete:hover {
@@ -58,5 +53,4 @@ th {
 
 .btn-edit:hover {
   color: #0fe40f;
-
 }

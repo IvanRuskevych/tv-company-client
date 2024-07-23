@@ -11,10 +11,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { IAgent } from '../../../models';
 import { AgentsApiService, AgentsService } from '../../../services';
 import { UtilsService } from '../../../shared';
-import { regex } from '../../../constants';
+import { regex, dialogData } from '../../../constants';
 
 import { CustomDialogComponent } from '../../custom-dialog/custom-dialog.component';
-import { dialogData } from '../../../constants/dialogData';
 
 @Component({
   selector: 'app-agent-form',
@@ -24,9 +23,9 @@ import { dialogData } from '../../../constants/dialogData';
   styleUrls: ['./agent-form.component.scss'],
 })
 export class AgentFormComponent implements OnInit {
-  agentForm: FormGroup;
-  agentId: string | null = null;
-  isEditMode: boolean = false;
+  private agentId: string | null = null;
+  public agentForm: FormGroup;
+  public isEditMode: boolean = false;
 
   protected readonly commissionInputValue = signal('');
 
@@ -80,15 +79,6 @@ export class AgentFormComponent implements OnInit {
     this.utilsService.navigateTo(['/agents']);
   }
 
-  showErrorDialog(message: string) {
-    const dialogRef = this.dialog.open(CustomDialogComponent, {
-      data: { message },
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      // to show smth after close dialog
-    });
-  }
 
   createNewAgent(agentData: IAgent): void {
     this.agentsApiService.addNewAgent(agentData).subscribe({
@@ -108,7 +98,6 @@ export class AgentFormComponent implements OnInit {
     this.agentsApiService.editAgent(agentId, agentData).subscribe({
       next: () => {
         this.agentsService.setAgents();
-        this.utilsService.navigateTo(['/agents']);
       },
       error: (err) => {
         if (err.status === 403 || err.status === 404 || err.status === 409) {
@@ -127,13 +116,23 @@ export class AgentFormComponent implements OnInit {
     const dialogRef = this.dialog.open(CustomDialogComponent, {
       data: dialogData.CONFIRM_EDIT,
     });
-
     dialogRef.afterClosed().subscribe((result) => {
       if (result && this.agentId) {
         this.editAgentData(this.agentId, agentData);
-        // this.utilsService.navigateTo(['/agents']);
-        // this.isEditMode = false;
+        this.utilsService.navigateTo(['/agents']);
+        this.isEditMode = false;
       }
     });
   }
+
+  showErrorDialog(message: string) {
+    const dialogRef = this.dialog.open(CustomDialogComponent, {
+      data: { message },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      // to show smth after close dialog
+    });
+  }
+
 }
