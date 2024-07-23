@@ -4,9 +4,9 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@a
 import { MatNativeDateModule } from '@angular/material/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-
 import { routes } from './app.routes';
-import { TokenInterceptorService } from './services';
+
+import { TokenInterceptorService, ErrorInterceptorService } from './services';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +18,11 @@ export const appConfig: ApplicationConfig = {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptorService,
       multi: true,
     },
   ],

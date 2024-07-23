@@ -86,11 +86,6 @@ export class AgentFormComponent implements OnInit {
         this.agentsService.setAgents();
         this.utilsService.navigateTo(['/agents']);
       },
-      error: (err) => {
-        if (err.status === 403 || err.status === 409) {
-          this.showErrorDialog(err.error.message);
-        }
-      },
     });
   }
 
@@ -98,11 +93,6 @@ export class AgentFormComponent implements OnInit {
     this.agentsApiService.editAgent(agentId, agentData).subscribe({
       next: () => {
         this.agentsService.setAgents();
-      },
-      error: (err) => {
-        if (err.status === 403 || err.status === 404 || err.status === 409) {
-          this.showErrorDialog(err.error.message);
-        }
       },
     });
   }
@@ -124,15 +114,4 @@ export class AgentFormComponent implements OnInit {
       }
     });
   }
-
-  showErrorDialog(message: string) {
-    const dialogRef = this.dialog.open(CustomDialogComponent, {
-      data: { message },
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      // to show smth after close dialog
-    });
-  }
-
 }

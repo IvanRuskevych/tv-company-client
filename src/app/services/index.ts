@@ -13,6 +13,7 @@ export * from './customers.service';
 export * from './authenticate.service';
 export * from './auth.service';
 export * from './token-interceptor.service';
+export * from './error-interceptor.service';
 
 export * from './commercials-api.service';
 export * from './commercials.service';

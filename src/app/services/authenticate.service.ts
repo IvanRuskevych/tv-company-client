@@ -34,12 +34,12 @@ export class AuthenticateService implements CanActivate {
   }
 
   login(): void {
-    this.authState.next(true); // оновлюємо стан
-    this.utilsService.navigateTo(['/dash']);
+    this.authState.next(true);
+    this.utilsService.navigateTo(['/commercials']);
   }
 
   logout(): void {
-    this.authState.next(false); // оновлюємо стан
+    this.authState.next(false); // refresh state to false
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     this.utilsService.navigateTo(['/login']);

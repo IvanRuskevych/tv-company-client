@@ -144,11 +144,6 @@ export class CommercialFormComponent implements OnInit {
         this.commercialsService.setCommercials();
         this.utilsService.navigateTo(['/commercials']);
       },
-      error: (err) => {
-        if (err.status === 403 || err.status === 409) {
-          this.showErrorDialog(err.error.message);
-        }
-      },
     });
   }
 
@@ -156,11 +151,6 @@ export class CommercialFormComponent implements OnInit {
     this.commercialsApiService.editCommercial(commercialId, commercialData).subscribe({
       next: () => {
         this.commercialsService.setCommercials();
-      },
-      error: (err) => {
-        if (err.status === 403 || err.status === 404 || err.status === 409) {
-          this.showErrorDialog(err.error.message);
-        }
       },
     });
   }
@@ -180,16 +170,6 @@ export class CommercialFormComponent implements OnInit {
         this.utilsService.navigateTo(['/commercials']);
         this.isEditMode = false;
       }
-    });
-  }
-
-  showErrorDialog(message: string) {
-    const dialogRef = this.dialog.open(CustomDialogComponent, {
-      data: { message },
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      // to show smth after close dialog
     });
   }
 }

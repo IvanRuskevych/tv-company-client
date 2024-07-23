@@ -8,7 +8,6 @@ import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 
 import { AuthService, AuthenticateService } from '../../services';
-import { UtilsService } from '../../shared';
 import { regex } from '../../constants';
 
 @Component({
@@ -37,7 +36,6 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private utilsService: UtilsService,
     private authenticateService: AuthenticateService,
   ) {
     this.loginForm = this.fb.group({
@@ -58,10 +56,6 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value).subscribe({
         next: () => {
           this.authenticateService.login();
-          this.utilsService.navigateTo(['/commercials']);
-        },
-        error: (err) => {
-          this.utilsService.showErrorDialog(err.error.message);
         },
       });
     }

@@ -91,11 +91,6 @@ export class CustomerFormComponent implements OnInit {
         this.customersService.setCustomers();
         this.utilsService.navigateTo(['/customers']);
       },
-      error: (err) => {
-        if (err.status === 403 || err.status === 409) {
-          this.showErrorDialog(err.error.message);
-        }
-      },
     });
   }
 
@@ -103,11 +98,6 @@ export class CustomerFormComponent implements OnInit {
     this.customersApiService.editCustomer(customerId, customerData).subscribe({
       next: () => {
         this.customersService.setCustomers();
-      },
-      error: (err) => {
-        if (err.status === 403 || err.status === 404 || err.status === 409) {
-          this.showErrorDialog(err.error.message);
-        }
       },
     });
   }
@@ -128,16 +118,6 @@ export class CustomerFormComponent implements OnInit {
         this.utilsService.navigateTo(['/customers']);
         this.isEditMode = false;
       }
-    });
-  }
-
-  showErrorDialog(message: string) {
-    const dialogRef = this.dialog.open(CustomDialogComponent, {
-      data: { message },
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      // to show smth after close dialog
     });
   }
 }
