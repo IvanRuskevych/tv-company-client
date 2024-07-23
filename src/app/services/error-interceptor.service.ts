@@ -26,7 +26,7 @@ export class ErrorInterceptorService {
           // Error from server-side
           if (error.error && error.error.message) {
             console.log('error.error.message: ', error.error.message);
-            errorMessage = error.error.message;  // Use the message from the backend
+            errorMessage = error.error.message;  // from the backend
           } else {
             switch (error.status) {
               case 400:

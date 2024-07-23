@@ -31,5 +31,5 @@ export const routes: Routes = [
   { path: 'customers/create', component: CustomerFormComponent, canActivate: [AuthenticateService] },
   { path: 'customers/edit/:id', component: CustomerFormComponent, canActivate: [AuthenticateService] },
 
-  { path: '**', redirectTo: '/commercials', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];

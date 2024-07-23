@@ -120,11 +120,6 @@ export class CommercialsDashboardComponent implements OnInit, AfterViewInit {
         this.commercialsService.setCommercials();
         this.loadCommercials();
       },
-      error: (err): void => {
-        if (err.status === 403 || err.status === 404) {
-          this.showErrorDialog(err.error.message);
-        }
-      },
     });
   }
 
@@ -151,16 +146,6 @@ export class CommercialsDashboardComponent implements OnInit, AfterViewInit {
   openInfoDialog(): void {
     this.dialog.open(CustomDialogComponent, {
       data: dialogData.NOT_FOUND,
-    });
-  }
-
-  showErrorDialog(message: string) {
-    const dialogRef = this.dialog.open(CustomDialogComponent, {
-      data: { message },
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      // to do smth after close dialog
     });
   }
 

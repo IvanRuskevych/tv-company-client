@@ -106,11 +106,6 @@ export class ShowsDashboardComponent implements OnInit, AfterViewInit {
         this.showsService.setShows();
         this.loadShows();
       },
-      error: (err): void => {
-        if (err.status === 404 || err.status === 403) {
-          this.showErrorDialog(err.error.message);
-        }
-      },
     });
   }
 
@@ -150,16 +145,6 @@ export class ShowsDashboardComponent implements OnInit, AfterViewInit {
   openInfoDialog(): void {
     this.dialog.open(CustomDialogComponent, {
       data: dialogData.NOT_FOUND,
-    });
-  }
-
-  showErrorDialog(message: string) {
-    const dialogRef = this.dialog.open(CustomDialogComponent, {
-      data: { message },
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      // to do smth after close dialog
     });
   }
 

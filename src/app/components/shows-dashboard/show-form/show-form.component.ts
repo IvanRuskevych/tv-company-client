@@ -89,11 +89,6 @@ export class ShowFormComponent implements OnInit {
         this.showsService.setShows();
         this.utilsService.navigateTo(['/shows']);
       },
-      error: (err) => {
-        if (err.status === 403 || err.status === 409) {
-          this.showErrorDialog(err.error.message);
-        }
-      },
     });
   }
 
@@ -101,11 +96,6 @@ export class ShowFormComponent implements OnInit {
     this.showsApiService.editShow(showId, showData).subscribe({
       next: () => {
         this.showsService.setShows();
-      },
-      error: (err) => {
-        if (err.status === 403 || err.status === 404 || err.status === 409) {
-          this.showErrorDialog(err.error.message);
-        }
       },
     });
   }
@@ -128,15 +118,4 @@ export class ShowFormComponent implements OnInit {
       }
     });
   }
-
-  showErrorDialog(message: string) {
-    const dialogRef = this.dialog.open(CustomDialogComponent, {
-      data: { message },
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      // to show smth after close dialog
-    });
-  }
-
 }
