@@ -20,3 +20,7 @@ export * from './commercials.service';
 
 export * from './user.service';
 export * from './user-api.service';
+
+export * from './loader.service';
+export * from './loader-interceptor.service';
+
